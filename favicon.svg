@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <defs>
+    <linearGradient id="calor" x1="0" y1="48" x2="48" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0.2" stop-color="#74add1"/>
+      <stop offset="0.5" stop-color="#fee090"/>
+      <stop offset="0.8" stop-color="#e8452c"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" fill="url(#calor)"/>
+  <g fill="#14213d">
+    <path d="M0 0H24A24 24 0 0 1 0 24Z"/>
+    <path d="M48 0V24A24 24 0 0 1 24 0Z"/>
+    <path d="M0 48V24A24 24 0 0 1 24 48Z"/>
+    <path d="M48 48H24A24 24 0 0 1 48 24Z"/>
+  </g>
+</svg>
