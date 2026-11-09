@@ -3,7 +3,7 @@
 import { lerLeituras, lerTrajeto } from './parsers.js';
 import { detectarFuso, estatisticas, paraCsv, paraGeoJson } from './cruzar.js';
 import {
-  VARIAVEIS, criarMapa, desenharTrajeto, destacarTrecho, limparDestaque, irParaTrecho, corDe, gradienteCss, faixa,
+  VARIAVEIS, criarMapa, desenharTrajeto, destacarTrecho, limparDestaque, irParaTrecho, corDe, gradienteCss, faixa, aplicarTemaMapa,
 } from './mapa.js';
 import { desenharAzulejos } from './azulejos.js';
 import { tipoDoArquivo } from './rotear.js';
@@ -779,6 +779,8 @@ function ligarEventos() {
   ligarZona('zona-termo', 'arquivo-termo');
   ligarZona('zona-trajeto', 'arquivo-trajeto');
   ligarSoltar();
+  // troca de tema só recolore o contorno da linha: cálculo, zoom e seleção ficam como estão
+  document.addEventListener('tema-mudou', () => aplicarTemaMapa(estado.mapa));
 
   $('gerar').addEventListener('click', () => gerar());
   $('aplicar-mapeamento').addEventListener('click', () => gerar());

@@ -11,6 +11,7 @@
 }
 
 :root {
+  color-scheme: light;
   --esmalte: #f5f8fb;
   --tinta: #1b2a4a;
   --suave: #4a5b74;
@@ -21,11 +22,74 @@
   --cobalto: #1f4fd1;
   --cobalto-escuro: #1a43b5;
   --cobalto-palido: #e4ebfb;
+  --campo-arcos: #c3d3f7;
   --desativado-fundo: #dde4ec;
   --desativado-texto: #3c4b63;
   --erro-fundo: #fbe7e7;
   --erro-tinta: #9b1c1c;
   --aviso-fundo: #eaf0f6;
+  --sobre-acao: #ffffff;
+  --campo: #ffffff;
+  --caixa: #e2e8f0;
+  --mapa-contorno: #000000;
+  --mapa-destaque: #1f4fd1;
+  --base-filtro: none;
+}
+
+/* tema escuro: pelo atributo (escolha salva) */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --esmalte: #0e1a2b;
+  --tinta: #e8eef8;
+  --suave: #b4c2d8;
+  --rejunte: #3c5068;
+  --zona-borda: #6f86a3;
+  --sem-dado: #7c8590;
+  --controle: #7e93ae;
+  --cobalto: #8fb4ff;
+  --cobalto-escuro: #b3ccff;
+  --cobalto-palido: #16243a;
+  --campo-arcos: #22395c;
+  --desativado-fundo: #1f2e45;
+  --desativado-texto: #a9b8cc;
+  --erro-fundo: #3a1f26;
+  --erro-tinta: #ffb8b8;
+  --aviso-fundo: #1a2a42;
+  --sobre-acao: #0e1a2b;
+  --campo: #13213a;
+  --caixa: #1a2a42;
+  --mapa-contorno: #e8eef8;
+  --mapa-destaque: #8fb4ff;
+  --base-filtro: invert(1) hue-rotate(180deg) brightness(0.72) saturate(0.7);
+}
+
+/* sem script: segue o sistema */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --esmalte: #0e1a2b;
+    --tinta: #e8eef8;
+    --suave: #b4c2d8;
+    --rejunte: #3c5068;
+    --zona-borda: #6f86a3;
+    --sem-dado: #7c8590;
+    --controle: #7e93ae;
+    --cobalto: #8fb4ff;
+    --cobalto-escuro: #b3ccff;
+    --cobalto-palido: #16243a;
+    --campo-arcos: #22395c;
+    --desativado-fundo: #1f2e45;
+    --desativado-texto: #a9b8cc;
+    --erro-fundo: #3a1f26;
+    --erro-tinta: #ffb8b8;
+    --aviso-fundo: #1a2a42;
+    --sobre-acao: #0e1a2b;
+    --campo: #13213a;
+    --caixa: #1a2a42;
+    --mapa-contorno: #e8eef8;
+    --mapa-destaque: #8fb4ff;
+    --base-filtro: invert(1) hue-rotate(180deg) brightness(0.72) saturate(0.7);
+  }
 }
 
 * {
@@ -51,7 +115,7 @@ body {
 
 ::selection {
   background: var(--cobalto);
-  color: #ffffff;
+  color: var(--sobre-acao);
 }
 
 :focus-visible {
@@ -233,7 +297,7 @@ h2 {
   display: grid;
   place-items: center;
   padding: 24px;
-  background: rgba(245, 248, 251, 0.95);
+  background: var(--esmalte);
   border: 3px solid var(--cobalto);
 }
 
@@ -321,14 +385,14 @@ button.primario {
   border-width: 2px;
   border-color: var(--cobalto);
   background: var(--cobalto);
-  color: #ffffff;
+  color: var(--sobre-acao);
   font-weight: 700;
 }
 
 button.primario:hover:not(:disabled) {
   border-color: var(--cobalto-escuro);
   background: var(--cobalto-escuro);
-  color: #ffffff;
+  color: var(--sobre-acao);
 }
 
 button.primario:disabled {
@@ -350,7 +414,7 @@ input[type="number"] {
   padding: 8px;
   border: 2px solid var(--tinta);
   border-radius: 0;
-  background: #ffffff;
+  background: var(--campo);
   font-weight: 600;
 }
 
@@ -416,7 +480,7 @@ input[type="datetime-local"] {
   padding: 8px;
   border: 2px solid var(--tinta);
   border-radius: 0;
-  background: #ffffff;
+  background: var(--campo);
   font: inherit;
   font-weight: 600;
 }
@@ -489,7 +553,9 @@ input[type="datetime-local"] {
   place-items: center;
   padding: 16px;
   background-color: var(--cobalto-palido);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M0 0H32A32 32 0 0 1 0 32Z' fill='%23c3d3f7'/%3E%3Cpath d='M64 64H32A32 32 0 0 1 64 32Z' fill='%23c3d3f7'/%3E%3C/svg%3E");
+  background-image:
+    radial-gradient(circle at 0 0, var(--campo-arcos) 31.5px, transparent 32px),
+    radial-gradient(circle at 100% 100%, var(--campo-arcos) 31.5px, transparent 32px);
   background-size: 64px 64px;
 }
 
@@ -837,7 +903,7 @@ input[type="datetime-local"] {
   width: 100%;
   height: 12px;
   border: 2px solid var(--tinta);
-  background: #ffffff;
+  background: var(--campo);
 }
 
 .progresso-barra {
@@ -862,5 +928,179 @@ input[type="datetime-local"] {
     scroll-behavior: auto !important;
     transition: none !important;
     animation: none !important;
+  }
+}
+
+/* ---------- tema escuro: mapa (Leaflet) ---------- */
+
+/* só a base OpenStreetMap escurece; a de satélite fica sem filtro */
+.base-osm {
+  filter: var(--base-filtro);
+}
+
+.leaflet-container {
+  background: var(--esmalte);
+}
+
+.leaflet-control-layers,
+.leaflet-bar a,
+.leaflet-control-layers-toggle {
+  background-color: var(--campo);
+  color: var(--tinta);
+  border-color: var(--controle);
+}
+
+.leaflet-control-layers label,
+.leaflet-control-layers-base label {
+  color: var(--tinta);
+}
+
+.leaflet-control-attribution {
+  background: var(--esmalte) !important;
+  color: var(--suave);
+}
+
+.leaflet-control-attribution a {
+  color: var(--cobalto);
+}
+
+.leaflet-tooltip {
+  background: var(--campo);
+  color: var(--tinta);
+  border: 2px solid var(--rejunte);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.leaflet-tooltip-top::before,
+.leaflet-tooltip-bottom::before,
+.leaflet-tooltip-left::before,
+.leaflet-tooltip-right::before {
+  display: none;
+}
+
+/* ---------- tema: botão de sol e lua ---------- */
+
+.tema-alternar {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  padding: 0;
+  border: 2px solid var(--tinta);
+  background: transparent;
+  color: var(--tinta);
+}
+
+.tema-alternar:hover:not(:disabled) {
+  border-color: var(--cobalto);
+  color: var(--cobalto);
+}
+
+.tema-alternar svg {
+  display: none;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* no claro, a lua (vai para o escuro); no escuro, o sol (vai para o claro) */
+.tema-alternar .icone-lua {
+  display: block;
+}
+
+:root[data-theme="dark"] .tema-alternar .icone-lua {
+  display: none;
+}
+
+:root[data-theme="dark"] .tema-alternar .icone-sol {
+  display: block;
+}
+
+/* cabeçalho das páginas de guia: título, links e o botão de tema cabem em 390 px */
+.guia-cabecalho {
+  flex-wrap: wrap;
+}
+
+.guia-cabecalho-links {
+  flex-wrap: wrap;
+}
+
+.guia-cabecalho .tema-alternar {
+  margin-left: auto;
+}
+
+/* cabeçalho das páginas de guia. Seletor com .guia-header para vencer o <style> de cada página
+   (que vem depois deste arquivo). Computador: marca, título, links, tema. Até 480 px: duas linhas. */
+.guia-header .guia-cabecalho {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.guia-header .guia-cabecalho > .marca {
+  order: 0;
+}
+
+.guia-header .guia-cabecalho > h1 {
+  order: 1;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.guia-header .guia-cabecalho > .guia-cabecalho-links {
+  order: 2;
+  flex: none;
+  flex-wrap: wrap;
+}
+
+.guia-header .guia-cabecalho > .tema-alternar {
+  order: 3;
+  margin-left: auto;
+}
+
+@media (max-width: 480px) {
+  .guia-header .guia-cabecalho {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 8px;
+    row-gap: 10px;
+  }
+
+  .guia-header .guia-cabecalho > .marca {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .guia-header .guia-cabecalho > h1 {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+    font-size: 18px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .guia-header .guia-cabecalho > .tema-alternar {
+    grid-column: 3;
+    grid-row: 1;
+    margin-left: 0;
+  }
+
+  .guia-header .guia-cabecalho > .guia-cabecalho-links {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    flex: none;
+    flex-wrap: wrap;
+    gap: 8px 14px;
   }
 }

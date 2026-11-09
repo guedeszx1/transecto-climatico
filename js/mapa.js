@@ -10,6 +10,11 @@ export const VARIAVEIS = {
 };
 
 const CINZA = '#7c8590';
+
+// Cor de um token do CSS (o tema vive no CSS; o JS só lê).
+export function corVar(nome) {
+  return getComputedStyle(document.documentElement).getPropertyValue(nome).trim() || '#000000';
+}
 // quantos segmentos entram em cada bloco antes de ceder a vez ao navegador
 const BLOCO_SEGMENTOS = 4000;
 
@@ -72,7 +77,14 @@ export function criarMapa(elemento) {
   const renderer = L.canvas({ padding: 0.5 });
   const grupo = L.layerGroup().addTo(mapa);
   const destaque = L.layerGroup().addTo(mapa);
-  return { mapa, renderer, grupo, destaque, cores: [] };
+  // só a base OpenStreetMap recebe o filtro do tema escuro (a de satélite não)
+  const marcarOsm = () => {
+    const c = osm.getContainer();
+    if (c) c.classList.add('base-osm');
+  };
+  marcarOsm();
+  osm.on('add', marcarOsm);
+  return { mapa, renderer, grupo, destaque, cores: [], contorno: null };
 }
 
 function formatarTempo(t, fusoHoras) {
@@ -137,7 +149,8 @@ export async function desenharTrajeto(mapa, pontos, variavel, fusoHoras, opcoes 
 
   // contorno escuro por baixo, para ler bem no satélite
   const coords = pontos.map((p) => [p.lat, p.lon]);
-  L.polyline(coords, { color: '#000', weight: 8, opacity: 0.5, renderer, interactive: false }).addTo(grupo);
+  mapa.contorno = L.polyline(coords, { color: corVar('--mapa-contorno'), weight: 8, opacity: 0.5, renderer, interactive: false });
+  mapa.contorno.addTo(grupo);
 
   let ultimoX = NaN;
   let ultimoY = NaN;
@@ -182,13 +195,18 @@ export async function desenharTrajeto(mapa, pontos, variavel, fusoHoras, opcoes 
   return { min, max };
 }
 
+// Troca de tema: recolore só o contorno da linha. Não refaz cruzamento, zoom nem seleção.
+export function aplicarTemaMapa(mapa) {
+  if (mapa && mapa.contorno) mapa.contorno.setStyle({ color: corVar('--mapa-contorno') });
+}
+
 // Anel de foco sobre a linha entre os pontos iIni e iFim (inclusive). Limpa com limparDestaque.
 export function destacarTrecho(mapa, pontos, iIni, iFim) {
   mapa.destaque.clearLayers();
   const coords = pontos.slice(iIni, iFim + 1).map((p) => [p.lat, p.lon]);
   if (coords.length < 2) return;
   // anel cobalto, depois as cores do trecho por cima (o canvas desenha na ordem de inclusão)
-  L.polyline(coords, { color: '#1f4fd1', weight: 11, opacity: 1, renderer: mapa.renderer, interactive: false }).addTo(mapa.destaque);
+  L.polyline(coords, { color: corVar('--mapa-destaque'), weight: 11, opacity: 1, renderer: mapa.renderer, interactive: false }).addTo(mapa.destaque);
   for (let i = iIni; i <= iFim && i < pontos.length - 1; i++) {
     const a = pontos[i];
     const b = pontos[i + 1];

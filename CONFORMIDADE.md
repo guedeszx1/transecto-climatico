@@ -1,10 +1,10 @@
 # Conformidade do Transecto Climático
 
-Revisão interna de 08/11/2026 do site público em https://guedeszx1.github.io/transecto-climatico/. Não substitui parecer jurídico nem teste de invasão profissional.
+Revisão interna de 09/11/2026 do site público em https://guedeszx1.github.io/transecto-climatico/. Não substitui parecer jurídico nem teste de invasão profissional.
 
 **Legenda:** OK = implementado e verificado. N/A = não se aplica, pelo motivo indicado. VOCÊ = depende de ação do responsável.
 
-O site é estático: sem login, banco de dados, API própria, cobrança, cookies ou coleta. Os arquivos são lidos no navegador.
+O site é estático: sem login, banco de dados, API própria, cobrança, cookies ou coleta. Os arquivos são lidos no navegador, e só a preferência de tema fica salva nele.
 
 ## Segurança e proteção
 
@@ -30,7 +30,7 @@ O site é estático: sem login, banco de dados, API própria, cobrança, cookies
 | 13 | Minimização de dados | OK | Nada é coletado. |
 | 14 | Finalidades documentadas | OK | `privacidade.html` |
 | 15 | Gestão de consentimento | N/A | Sem cookies, rastreamento ou coleta. |
-| 16 | Política de Cookies | OK | Em `privacidade.html`: não há cookies nem armazenamento local (verificado no código). |
+| 16 | Política de Cookies | OK | Em `privacidade.html`: não há cookies; o armazenamento local guarda só a preferência de tema, sob a chave `tema` (verificado no navegador). |
 | 17 | Direitos dos titulares | OK | Art. 18 explicado na política, com canal de contato. |
 | 18 | Exclusão de dados | OK | Arquivos só na memória da aba; somem ao fechar. |
 | 19 | Retenção de dados | OK | O responsável não retém dados. |

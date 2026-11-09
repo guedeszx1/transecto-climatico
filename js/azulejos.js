@@ -1,7 +1,9 @@
 // Faixa de azulejos: um azulejo por trecho, cor pela média da variável.
 // O azulejo mostra o valor escrito; a cor do texto é escolhida pelo contraste.
 
-const TINTA = '#14213d';
+// Texto escuro do azulejo. Com #050a14 o pior caso da escala ficaria em 4,45:1; só o preto
+// puro passa de 4,5:1 em toda a escala (4,58:1 no pior caso, medido em testes/azulejos-contraste.test.mjs).
+const TEXTO_ESCURO = '#000000';
 const BRANCO = '#ffffff';
 
 function hexParaRgb(hex) {
@@ -24,7 +26,7 @@ function razaoContraste(a, b) {
 
 // Texto escuro ou branco, o que tiver mais contraste sobre a cor de fundo.
 export function corTexto(fundo) {
-  return razaoContraste(fundo, TINTA) >= razaoContraste(fundo, BRANCO) ? TINTA : BRANCO;
+  return razaoContraste(fundo, TEXTO_ESCURO) >= razaoContraste(fundo, BRANCO) ? TEXTO_ESCURO : BRANCO;
 }
 
 function formatar(v, casas) {
