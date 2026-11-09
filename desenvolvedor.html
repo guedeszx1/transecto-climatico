@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Desenvolvedor — Transecto Climático</title>
+  <link rel="stylesheet" href="css/app.css">
+  <style>
+    .guia-corpo {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 24px 18px 64px;
+    }
+
+    .guia-nav {
+      margin-bottom: 20px;
+    }
+
+    .guia-voltar {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border: 1px solid var(--controle);
+      border-radius: 0;
+      background: transparent;
+      color: var(--cobalto);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .guia-voltar:hover {
+      border-color: var(--cobalto);
+      background: var(--cobalto-palido);
+    }
+
+    .guia-header {
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--rejunte);
+      margin-bottom: 24px;
+    }
+
+    .guia-cabecalho {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .guia-cabecalho .marca {
+      flex: none;
+      width: 32px;
+      height: 32px;
+    }
+
+    .guia-cabecalho h1 {
+      flex: 1;
+      min-width: 0;
+      margin: 0;
+      font-size: 26px;
+      font-weight: 800;
+      font-stretch: 125%;
+      line-height: 1.2;
+    }
+
+    .guia-cabecalho-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: none;
+    }
+
+    .guia-cabecalho-links a {
+      color: var(--cobalto);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .guia-cabecalho-links a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .guia-cabecalho-links a[aria-current="page"] {
+      color: var(--tinta);
+      font-weight: 700;
+    }
+
+    .guia-secao {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 2px solid var(--rejunte);
+    }
+
+    .guia-secao:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .guia-secao h2 {
+      font-size: 18px;
+      font-weight: 700;
+      font-stretch: 115%;
+      margin: 0 0 12px;
+      color: var(--tinta);
+    }
+
+    .guia-secao p {
+      margin: 0 0 12px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--tinta);
+    }
+
+    .guia-secao ul {
+      margin: 0 0 14px;
+      padding-left: 20px;
+    }
+
+    .guia-secao li {
+      margin-bottom: 8px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .guia-secao a {
+      color: var(--cobalto);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .guia-secao a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .guia-rodape {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 2px solid var(--rejunte);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .guia-corpo {
+        padding: 16px 12px 48px;
+      }
+
+      .guia-cabecalho {
+        gap: 8px;
+      }
+
+      .guia-cabecalho .marca {
+        width: 24px;
+        height: 24px;
+      }
+
+      .guia-cabecalho h1 {
+        font-size: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .guia-cabecalho-links {
+        gap: 8px;
+      }
+
+      .guia-cabecalho-links a {
+        font-size: 13px;
+      }
+
+      .guia-voltar {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="guia-corpo">
+    <nav class="guia-nav" aria-label="Navegação">
+      <a href="index.html" class="guia-voltar">Voltar para o mapa</a>
+    </nav>
+
+    <header class="guia-header">
+      <div class="guia-cabecalho">
+        <svg class="marca" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path d="M0 0H24A24 24 0 0 1 0 24Z"/>
+          <path d="M48 0V24A24 24 0 0 1 24 0Z"/>
+          <path d="M0 48V24A24 24 0 0 1 24 48Z"/>
+          <path d="M48 48H24A24 24 0 0 1 48 24Z"/>
+        </svg>
+        <h1>Desenvolvedor</h1>
+        <nav class="guia-cabecalho-links" aria-label="Páginas">
+          <a href="ajuda.html">Como usar</a>
+          <a href="desenvolvedor.html" aria-current="page">Desenvolvedor</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="guia-secao">
+        <h2>Rafael Guedes</h2>
+        <p>Desenvolvedor do Transecto Climático. LCGEA, Universidade de Brasília (UnB).</p>
+        <ul>
+          <li><a href="https://github.com/guedeszx1" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://orcid.org/0009-0000-8681-7131" target="_blank" rel="noopener">ORCID: 0009-0000-8681-7131</a></li>
+          <li><a href="https://buscatextual.cnpq.br/buscatextual/visualizacv.do?metodo=apresentar&amp;id=K1576781Y6" target="_blank" rel="noopener">Currículo Lattes</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="guia-rodape">
+      <a href="index.html" class="guia-voltar">Voltar para o mapa</a>
+      <span style="color: var(--suave); font-size: 13px;">Transecto Climático</span>
+    </footer>
+  </div>
+</body>
+</html>

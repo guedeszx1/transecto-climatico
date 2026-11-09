@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transecto Climático</title>
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <div class="app">
+    <header class="cabecalho">
+      <svg class="marca" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <path d="M0 0H24A24 24 0 0 1 0 24Z"/>
+        <path d="M48 0V24A24 24 0 0 1 24 0Z"/>
+        <path d="M0 48V24A24 24 0 0 1 24 48Z"/>
+        <path d="M48 48H24A24 24 0 0 1 48 24Z"/>
+      </svg>
+      <h1>Transecto Climático</h1>
+      <a href="ajuda.html">Como usar</a>
+      <a href="desenvolvedor.html">Desenvolvedor</a>
+    </header>
+
+    <div class="area-mapa">
+      <main id="mapa" class="mapa" aria-label="Mapa do transecto"></main>
+
+      <div id="vazio" class="vazio">
+        <div class="vazio-caixa" role="status" aria-live="polite">
+          <h2 id="vazio-titulo">Envie os dois arquivos para ver o trajeto</h2>
+          <p id="vazio-texto">Termohigrômetro e trajeto da caminhada. Os arquivos ficam no seu computador.</p>
+          <p class="rotulo-exemplos">Veja um exemplo:</p>
+          <div id="exemplos" class="exemplos">
+            <button id="exemplo-recife" class="secundario" type="button">Recife (PE), dados fictícios</button>
+          </div>
+        </div>
+      </div>
+      <div id="progresso" class="progresso" role="status" aria-live="polite" hidden>
+        <svg class="progresso-modulo" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path class="quarto q1" d="M0 0H24A24 24 0 0 1 0 24Z"/>
+          <path class="quarto q2" d="M48 0V24A24 24 0 0 1 24 0Z"/>
+          <path class="quarto q3" d="M0 48V24A24 24 0 0 1 24 48Z"/>
+          <path class="quarto q4" d="M48 48H24A24 24 0 0 1 48 24Z"/>
+        </svg>
+        <p id="progresso-passo" class="progresso-passo">Preparando</p>
+        <div id="progresso-trilho" class="progresso-trilho" role="progressbar" aria-label="Andamento" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="progresso-barra" class="progresso-barra"></div>
+        </div>
+        <p id="progresso-pct" class="progresso-pct">0%</p>
+      </div>
+    </div>
+
+    <section class="faixa" aria-labelledby="faixa-titulo">
+      <h2 id="faixa-titulo" class="sr">Trechos do trajeto</h2>
+      <p id="faixa-estado" class="estado">Envie os dois arquivos para ver os trechos aqui.</p>
+      <div id="faixa-dados" hidden>
+        <div class="faixa-barra">
+          <div id="variavel" class="abas" role="tablist" aria-label="Variável">
+            <button type="button" role="tab" data-valor="temp" aria-selected="true">Temperatura</button>
+            <button type="button" role="tab" data-valor="umid" aria-selected="false">Umidade</button>
+            <button type="button" role="tab" data-valor="orvalho" aria-selected="false" aria-label="Ponto de orvalho"><span class="nome-longo">Ponto de orvalho</span><span class="nome-curto" aria-hidden="true">Orvalho</span></button>
+            <button type="button" role="tab" data-valor="alt" aria-selected="false">Altitude</button>
+          </div>
+          <p id="resumo" class="resumo"></p>
+          <p id="tempo" class="tempo" hidden></p>
+          <p id="explicacao-orvalho" class="explicacao" hidden>Ponto de orvalho: temperatura em que o ar começa a formar gotas. Quanto mais perto da temperatura, mais úmido o ar.</p>
+          <div class="legenda">
+            <span id="legenda-min" class="numero">—</span>
+            <div id="legenda-gradiente" class="gradiente" role="img" aria-label="Escala de cores"></div>
+            <span id="legenda-max" class="numero">—</span>
+            <small>Cinza: trecho sem dado</small>
+          </div>
+        </div>
+        <div id="azulejos" class="azulejos"></div>
+      </div>
+    </section>
+
+    <aside id="painel-lateral" class="painel">
+      <div id="solte-aqui" class="solte-aqui" hidden>
+        <p>Solte aqui: reconhecemos cada arquivo sozinho</p>
+      </div>
+      <section id="envio" class="bloco envio">
+        <h2>Enviar arquivos</h2>
+        <div id="envio-campos">
+          <div class="zonas">
+            <div id="zona-termo" class="zona" role="button" tabindex="0">
+              <strong>Termohigrômetro</strong>
+              <span>Arraste o arquivo aqui ou clique (.csv, .txt, .tsv, .xlsx, .xls)</span>
+              <em id="nome-termo">Nenhum arquivo</em>
+              <input id="arquivo-termo" type="file" accept=".csv,.txt,.tsv,.xlsx,.xls" hidden>
+            </div>
+            <div id="zona-trajeto" class="zona" role="button" tabindex="0">
+              <strong>Trajeto (KML, KMZ, GPX)</strong>
+              <span>Arraste o arquivo aqui ou clique</span>
+              <em id="nome-trajeto">Nenhum arquivo</em>
+              <input id="arquivo-trajeto" type="file" accept=".kml,.kmz,.gpx" hidden>
+            </div>
+          </div>
+          <button id="gerar" class="primario" type="button" disabled>Gerar mapa</button>
+        </div>
+        <p id="envio-aviso" class="envio-aviso" role="status" hidden></p>
+        <div id="envio-resumo" class="envio-resumo" hidden>
+          <p id="arquivos-texto"></p>
+          <button id="trocar-arquivos" class="secundario" type="button">Trocar arquivos</button>
+        </div>
+      </section>
+
+      <section id="mapeamento" class="bloco" hidden>
+        <h2>Colunas do termohigrômetro</h2>
+        <p class="ajuda">Não reconheci tudo sozinho. Escolha as colunas:</p>
+        <div id="campos-mapeamento"></div>
+        <button id="aplicar-mapeamento" type="button">Aplicar</button>
+      </section>
+
+      <div id="erro" class="erro" role="alert" hidden></div>
+
+      <section id="painel-resultado" class="bloco" hidden>
+        <h2>Ajustes</h2>
+        <label class="campo">
+          <span>Suavizar a linha</span>
+          <select id="media">
+            <option value="none">Não suavizar</option>
+            <option value="m25">Pouco: média de 25 m</option>
+            <option value="m50" selected>Média de 50 m</option>
+            <option value="m100">Mais: média de 100 m</option>
+            <option value="m200">Muito: média de 200 m</option>
+          </select>
+        </label>
+        <p class="ajuda">Cada ponto passa a valer a média dos pontos vizinhos dentro da janela. Janela maior deixa a linha mais lisa e some com picos curtos.</p>
+
+        <section id="bloco-ritmo" class="subbloco" hidden aria-labelledby="ritmo-titulo">
+          <h3 id="ritmo-titulo">Trajeto sem horário</h3>
+          <p id="frase-ritmo" class="frase-ritmo"></p>
+          <p id="aviso-ritmo" class="aviso-ritmo" role="status" hidden></p>
+          <label class="campo">
+            <span>Início da caminhada</span>
+            <input id="inicio" type="datetime-local" step="1">
+          </label>
+          <label class="campo">
+            <span>Fim da caminhada</span>
+            <input id="fim" type="datetime-local" step="1">
+          </label>
+          <label class="caixa-marcar">
+            <input id="inverter" type="checkbox">
+            <span>Inverter o sentido do trajeto</span>
+          </label>
+          <button id="usar-todas" class="secundario" type="button">Usar todas as leituras</button>
+        </section>
+
+        <p id="fuso-frase" class="frase">Reconhecemos o horário de Brasília (UTC−3).</p>
+        <details class="corrigir">
+          <summary>Corrigir o horário</summary>
+          <label class="campo">
+            <span>Diferença para o horário mundial (UTC), em horas</span>
+            <input id="fuso" type="number" min="-14" max="14" step="1" value="-3">
+          </label>
+          <p id="fuso-ajuda" class="ajuda">Fuso é quanto o relógio do aparelho está adiantado ou atrasado em relação ao UTC. Brasília é UTC−3.</p>
+        </details>
+      </section>
+
+      <section id="bloco-avisos" class="bloco avisos" hidden>
+        <h2>Avisos</h2>
+        <ul id="avisos"></ul>
+      </section>
+
+      <section id="downloads" class="bloco" hidden>
+        <h2>Baixar</h2>
+        <div class="downloads">
+          <button id="baixar-csv" type="button" disabled>Baixar CSV</button>
+          <button id="baixar-geojson" type="button" disabled>Baixar GeoJSON</button>
+          <button id="baixar-figura" type="button" disabled>Baixar figura</button>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <script src="vendor/jszip.min.js"></script>
+  <script src="vendor/xlsx.full.min.js"></script>
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Como usar — Transecto Climático</title>
+  <link rel="stylesheet" href="css/app.css">
+  <style>
+    .guia-corpo {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 24px 18px 64px;
+    }
+
+    .guia-nav {
+      margin-bottom: 20px;
+    }
+
+    .guia-voltar {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border: 1px solid var(--controle);
+      border-radius: 0;
+      background: transparent;
+      color: var(--cobalto);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .guia-voltar:hover {
+      border-color: var(--cobalto);
+      background: var(--cobalto-palido);
+    }
+
+    .guia-header {
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--rejunte);
+      margin-bottom: 24px;
+    }
+
+    .guia-cabecalho {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .guia-cabecalho .marca {
+      flex: none;
+      width: 32px;
+      height: 32px;
+    }
+
+    .guia-cabecalho h1 {
+      flex: 1;
+      min-width: 0;
+      margin: 0;
+      font-size: 26px;
+      font-weight: 800;
+      font-stretch: 125%;
+      line-height: 1.2;
+    }
+
+    .guia-cabecalho-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: none;
+    }
+
+    .guia-cabecalho-links a {
+      color: var(--cobalto);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .guia-cabecalho-links a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .guia-cabecalho-links a[aria-current="page"] {
+      color: var(--tinta);
+      font-weight: 700;
+    }
+
+    .guia-subtitulo {
+      margin: 0;
+      color: var(--suave);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .guia-secao {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 2px solid var(--rejunte);
+    }
+
+    .guia-secao:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .guia-secao h2 {
+      font-size: 18px;
+      font-weight: 700;
+      font-stretch: 115%;
+      margin: 0 0 12px;
+      color: var(--tinta);
+    }
+
+    .guia-secao p {
+      margin: 0 0 12px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--tinta);
+    }
+
+    .guia-secao ul,
+    .guia-secao ol {
+      margin: 0 0 14px;
+      padding-left: 20px;
+    }
+
+    .guia-secao li {
+      margin-bottom: 8px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .guia-secao li strong {
+      font-weight: 700;
+    }
+
+    .nota {
+      margin: 16px 0;
+      padding: 12px 14px;
+      background: var(--aviso-fundo);
+      border-radius: 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .nota p {
+      margin: 0;
+    }
+
+    .formato-tag {
+      display: inline-block;
+      padding: 1px 5px;
+      background: #e2e8f0;
+      font-size: 13px;
+      font-family: monospace;
+      border-radius: 0;
+      color: var(--tinta);
+    }
+
+    .amostra-cinza {
+      display: inline-block;
+      width: 20px;
+      height: 6px;
+      background: var(--rejunte);
+      vertical-align: middle;
+      margin: 0 4px;
+    }
+
+    .guia-rodape {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 2px solid var(--rejunte);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .guia-corpo {
+        padding: 16px 12px 48px;
+      }
+
+      .guia-cabecalho {
+        gap: 8px;
+      }
+
+      .guia-cabecalho .marca {
+        width: 24px;
+        height: 24px;
+      }
+
+      .guia-cabecalho h1 {
+        font-size: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .guia-cabecalho-links {
+        gap: 8px;
+      }
+
+      .guia-cabecalho-links a {
+        font-size: 13px;
+      }
+
+      .guia-voltar {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="guia-corpo">
+    <nav class="guia-nav" aria-label="Navegação">
+      <a href="index.html" class="guia-voltar">Voltar para o mapa</a>
+    </nav>
+
+    <header class="guia-header">
+      <div class="guia-cabecalho">
+        <svg class="marca" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path d="M0 0H24A24 24 0 0 1 0 24Z"/>
+          <path d="M48 0V24A24 24 0 0 1 24 0Z"/>
+          <path d="M0 48V24A24 24 0 0 1 24 48Z"/>
+          <path d="M48 48H24A24 24 0 0 1 48 24Z"/>
+        </svg>
+        <h1>Como usar</h1>
+        <nav class="guia-cabecalho-links" aria-label="Páginas">
+          <a href="ajuda.html" aria-current="page">Como usar</a>
+          <a href="desenvolvedor.html">Desenvolvedor</a>
+        </nav>
+      </div>
+      <p class="guia-subtitulo">Aprenda a preparar seus arquivos, entender o mapa e explorar os dados da sua caminhada.</p>
+    </header>
+
+    <main>
+      <!-- PRIVACIDADE -->
+      <section class="guia-secao">
+        <h2>Seus arquivos não saem do computador</h2>
+        <p>Todo o processamento dos dados e o desenho da linha acontecem diretamente no seu navegador, no seu computador ou celular.</p>
+        <p>Os arquivos e dados da sua caminhada não são enviados para nenhum servidor externo, mas o mapa de fundo precisa de conexão à internet para ser carregado.</p>
+      </section>
+
+      <!-- O QUE É -->
+      <section class="guia-secao">
+        <h2>O que é um termohigrômetro e um transecto?</h2>
+        <ul>
+          <li><strong>Termohigrômetro:</strong> é um aparelho portátil que mede e registra a temperatura e a umidade do ar ao longo do tempo.</li>
+          <li><strong>Transecto climático:</strong> é uma caminhada em que você percorre um trajeto para observar como as condições do clima variam de um ponto a outro da cidade ou do campo.</li>
+        </ul>
+        <p>O aplicativo junta o que o aparelho mediu a cada minuto com o lugar em que você estava naquele instante, colorindo a rota no mapa para revelar ilhas de calor, áreas frescas arborizadas e mudanças no ar.</p>
+      </section>
+
+      <!-- QUE ARQUIVOS ENVIAR -->
+      <section class="guia-secao">
+        <h2>Que arquivos enviar?</h2>
+        <p>Você precisa enviar apenas dois arquivos:</p>
+        <ol>
+          <li>
+            <strong>Arquivo do termohigrômetro:</strong> exportado do seu aparelho ou aplicativo do sensor nos formatos <span class="formato-tag">.csv</span>, <span class="formato-tag">.txt</span>, <span class="formato-tag">.tsv</span>, <span class="formato-tag">.xlsx</span> ou <span class="formato-tag">.xls</span>. Ele deve conter a data e hora de cada medição e os valores de temperatura e umidade relativa (se trouxer ponto de orvalho ou altitude, o aplicativo também aproveita). O sistema reconhece os nomes de coluna mais comuns sozinho; se não tiver certeza, ele abrirá um formulário simples para você apontar as colunas certas.
+          </li>
+          <li>
+            <strong>Arquivo do trajeto:</strong> o percurso percorrido durante a caminhada, gravado em <span class="formato-tag">.kml</span>, <span class="formato-tag">.kmz</span> ou <span class="formato-tag">.gpx</span>.
+          </li>
+        </ol>
+      </section>
+
+      <!-- COMO CONSEGUIR O TRAJETO COM HORÁRIO -->
+      <section class="guia-secao">
+        <h2>Como conseguir o trajeto com horário?</h2>
+        <p>Para associar a temperatura certa a cada metro da rua, o programa precisa saber em que minuto você passou por cada coordenada geográfica. Por isso, o trajeto precisa conter horário em cada ponto.</p>
+        <p>Veja como exportar corretamente pelos aplicativos mais usados:</p>
+        <ul>
+          <li>
+            <strong>Geo Tracker (Android):</strong> grave a caminhada normalmente. Ao final, compartilhe ou exporte o trajeto em <strong>GPX</strong> ou <strong>KML/KMZ</strong> — o Geo Tracker grava os horários dos pontos em ambos os formatos.
+          </li>
+          <li>
+            <strong>Google Earth:</strong> se você gravou a caminhada com receptor GPS no celular e abriu no Google Earth, salve como KML ou KMZ. Evite desenhar o caminho à mão livre com a ferramenta de linha do Google Earth, pois caminhos manuais não contêm dados de horário.
+          </li>
+          <li>
+            <strong>Wikiloc:</strong> exporte sempre no formato <strong>GPX</strong>. Atenção: o arquivo KML do Wikiloc traz apenas as linhas geográficas e <em>não</em> salva o horário dos pontos; já o arquivo GPX do Wikiloc grava a data e o horário completos de cada ponto.
+          </li>
+          <li>
+            <strong>Outros aplicativos (Strava, Garmin, OsmAnd):</strong> acesse as opções da sua atividade e escolha exportar em <strong>GPX</strong>.
+          </li>
+        </ul>
+        <p>Dá para soltar os dois arquivos juntos na barra lateral: o site reconhece cada um pela extensão e coloca no campo certo.</p>
+        <div class="nota">
+          <p><strong>E se o trajeto não tiver horário?</strong> Se o arquivo não trouxer o horário de cada ponto (como uma rota desenhada antes da caminhada), o site não sabe onde você estava em cada leitura. Por isso, ele considera que você andou sempre no mesmo ritmo e usa a distância percorrida ao longo do caminho: a primeira leitura fica no começo, a última no fim, e as demais são espalhadas na proporção do tempo. Exemplo: numa caminhada de 80 minutos em 6,2 km, a leitura feita aos 40 minutos fica no quilômetro 3,1. Em Ajustes, no bloco Trajeto sem horário, você pode informar quando a caminhada começou e terminou, para ignorar as leituras feitas antes ou depois, e inverter o sentido do trajeto. Se você parou no caminho ou mudou de ritmo, os valores ficam deslocados: o resultado é uma aproximação.</p>
+        </div>
+      </section>
+
+      <!-- AZULEJOS -->
+      <section class="guia-secao">
+        <h2>O que os azulejos mostram?</h2>
+        <p>Logo abaixo do mapa, a linha da sua caminhada é dividida em um painel contínuo de azulejos:</p>
+        <ul>
+          <li>Cada azulejo representa um trecho da caminhada e mostra o valor médio medido naquele pedaço, acompanhado da distância em quilômetros.</li>
+          <li>A cor do azulejo segue exatamente a cor daquele mesmo trecho na linha do mapa.</li>
+          <li>Ao passar o mouse ou tocar em um azulejo, ele ganha uma borda destacada e o trecho correspondente no mapa é marcado com o mesmo anel, ajudando você a encontrar na hora onde ocorreu o pico de calor ou o ponto mais fresco.</li>
+          <li>Logo acima dos azulejos, você pode alternar entre <strong>Temperatura</strong>, <strong>Umidade</strong>, <strong>Ponto de orvalho</strong> e <strong>Altitude</strong>, conferir o resumo com a média geral, e consultar a barra com a escala de cores.</li>
+        </ul>
+      </section>
+
+      <!-- SUAVIZAR A LINHA -->
+      <section class="guia-secao">
+        <h2>Suavizar a linha</h2>
+        <p>Durante uma caminhada ao ar livre, pequenas oscilações repentinas acontecem: uma rajada momentânea de vento ou o calor do escapamento de um carro que passa podem gerar um valor pontual fora do padrão.</p>
+        <p>No painel lateral em <strong>Ajustes</strong>, a opção <strong>Suavizar a linha</strong> calcula a média dos pontos vizinhos em uma janela de distância:</p>
+        <ul>
+          <li><strong>Não suavizar:</strong> mostra cada medição individual exatamente como foi gravada.</li>
+          <li><strong>Pouco (25 m) ou Média (50 m):</strong> suaviza pequenos ruídos do vento sem esconder as variações locais entre quadras ou sombras de árvores.</li>
+          <li><strong>Mais (100 m) ou Muito (200 m):</strong> janelas maiores deixam o traçado mais suave e destacam tendências amplas do bairro, eliminando picos muito curtos.</li>
+        </ul>
+      </section>
+
+      <!-- HORÁRIO DO APARELHO -->
+      <section class="guia-secao">
+        <h2>Horário do aparelho e fuso</h2>
+        <p>Os aparelhos GPS gravam os horários no padrão universal (UTC). Já o termohigrômetro de bolso costuma gravar as medições no horário em que o relógio interno dele foi configurado — por exemplo, no horário de Brasília, que fica 3 horas atrás do horário universal (<strong>UTC−3</strong>).</p>
+        <p>Na maioria dos casos, o aplicativo descobre essa diferença sozinho e ajusta os horários para Brasília ou para o fuso detectado nos arquivos.</p>
+        <p>Se o relógio do termohigrômetro estava desregulado, adiantado, atrasado ou você realizou a caminhada em outro fuso, abra <strong>Corrigir o horário</strong> no painel de ajustes e informe a diferença em horas. O mapa, a linha e os azulejos recalculam na mesma hora.</p>
+      </section>
+
+      <!-- TRECHO CINZA -->
+      <section class="guia-secao">
+        <h2>O que significa o trecho cinza?</h2>
+        <p>Se você notar trechos da linha do mapa ou azulejos na cor <span class="amostra-cinza" aria-hidden="true"></span> <strong>cinza</strong>, significa <strong>trecho sem dado</strong>.</p>
+        <p>Nesses pontos, o trajeto percorrido existe no GPS, mas não há nenhuma leitura do termohigrômetro correspondente àquele horário. Isso geralmente acontece quando:</p>
+        <ul>
+          <li>O GPS foi iniciado alguns minutos antes de ligar o termohigrômetro, ou continuou gravando depois que o aparelho foi desligado;</li>
+          <li>O sensor sofreu uma pausa ou falha temporária de registro;</li>
+          <li>A diferença de horário (fuso) precisa ser corrigida no painel de ajustes para alinhar o relógio do sensor com o do GPS.</li>
+        </ul>
+      </section>
+
+      <!-- BAIXAR FIGURA E DADOS -->
+      <section class="guia-secao">
+        <h2>Baixar figura e dados</h2>
+        <p>Após gerar o mapa, o bloco <strong>Baixar</strong> no painel lateral permite salvar seu trabalho em três formatos:</p>
+        <ul>
+          <li><strong>Baixar figura:</strong> gera uma imagem limpa do mapa completo, com o caminho colorido, a barra de cores e os valores resumidos. É ideal para anexar diretamente em relatórios, trabalhos acadêmicos ou apresentações.</li>
+          <li><strong>Baixar CSV:</strong> exporta uma planilha com todas as medições casadas com as coordenadas geográficas de cada ponto, pronta para abrir no Excel ou em outro programa de planilhas.</li>
+          <li><strong>Baixar GeoJSON:</strong> exporta o trajeto enriquecido com os dados climáticos para abrir em softwares de geoprocessamento como o QGIS.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="guia-rodape">
+      <a href="index.html" class="guia-voltar">Voltar para o mapa</a>
+      <span style="color: var(--suave); font-size: 13px;">Transecto Climático</span>
+    </footer>
+  </div>
+</body>
+</html>
