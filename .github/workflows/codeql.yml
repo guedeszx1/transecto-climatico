@@ -1,0 +1,28 @@
+name: Análise de segurança do código
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "41 8 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analisar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+          config: |
+            paths-ignore:
+              - vendor
+      - uses: github/codeql-action/analyze@v3

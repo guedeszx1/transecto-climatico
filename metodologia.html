@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Como calculamos — Transecto Climático</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org https://server.arcgisonline.com; connect-src 'self' https://*.tile.openstreetmap.org https://tile.openstreetmap.org https://server.arcgisonline.com; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="css/app.css">
+  <style>
+    .guia-corpo {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 24px 18px 64px;
+    }
+
+    .guia-nav {
+      margin-bottom: 20px;
+    }
+
+    .guia-voltar {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border: 1px solid var(--controle);
+      border-radius: 0;
+      background: transparent;
+      color: var(--cobalto);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .guia-voltar:hover {
+      border-color: var(--cobalto);
+      background: var(--cobalto-palido);
+    }
+
+    .guia-header {
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--rejunte);
+      margin-bottom: 24px;
+    }
+
+    .guia-cabecalho {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .guia-cabecalho .marca {
+      flex: none;
+      width: 32px;
+      height: 32px;
+    }
+
+    .guia-cabecalho h1 {
+      flex: 1;
+      min-width: 0;
+      margin: 0;
+      font-size: 26px;
+      font-weight: 800;
+      font-stretch: 125%;
+      line-height: 1.2;
+    }
+
+    .guia-cabecalho-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: none;
+    }
+
+    .guia-cabecalho-links a {
+      color: var(--cobalto);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .guia-cabecalho-links a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .guia-cabecalho-links a[aria-current="page"] {
+      color: var(--tinta);
+      font-weight: 700;
+    }
+
+    .guia-secao {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 2px solid var(--rejunte);
+    }
+
+    .guia-secao:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .guia-secao h2 {
+      font-size: 18px;
+      font-weight: 700;
+      font-stretch: 115%;
+      margin: 0 0 12px;
+      color: var(--tinta);
+    }
+
+    .guia-secao p {
+      margin: 0 0 12px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--tinta);
+    }
+
+    .guia-secao ul {
+      margin: 0 0 14px;
+      padding-left: 20px;
+    }
+
+    .guia-secao li {
+      margin-bottom: 8px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .guia-secao a {
+      color: var(--cobalto);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .guia-secao a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .guia-rodape {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 2px solid var(--rejunte);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .guia-corpo {
+        padding: 16px 12px 48px;
+      }
+
+      .guia-cabecalho {
+        gap: 8px;
+      }
+
+      .guia-cabecalho .marca {
+        width: 24px;
+        height: 24px;
+      }
+
+      .guia-cabecalho h1 {
+        font-size: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .guia-cabecalho-links {
+        gap: 8px;
+      }
+
+      .guia-cabecalho-links a {
+        font-size: 13px;
+      }
+
+      .guia-voltar {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    .guia-destaque {
+      margin: 18px 0 0;
+      padding: 14px 16px;
+      border: 1px solid var(--cobalto);
+      background: var(--cobalto-palido);
+      font-weight: 600;
+    }
+
+    .guia-formula {
+      margin: 0 0 14px;
+      padding: 12px 14px;
+      background: var(--cobalto-palido);
+      overflow-x: auto;
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      white-space: pre;
+    }
+
+    .guia-exemplo {
+      padding-left: 12px;
+      border-left: 3px solid var(--rejunte);
+    }
+
+    .guia-tabela {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 16px;
+      font-size: 14px;
+    }
+
+    .guia-tabela th,
+    .guia-tabela td {
+      text-align: left;
+      vertical-align: top;
+      padding: 7px 8px;
+      border-bottom: 1px solid var(--rejunte);
+    }
+
+    .guia-tabela th {
+      font-weight: 700;
+    }
+
+    .guia-secao code {
+      font-size: 0.92em;
+    }
+
+    @media (max-width: 480px) {
+      .guia-tabela {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="guia-corpo">
+    <nav class="guia-nav" aria-label="Navegação">
+      <a href="index.html" class="guia-voltar">Voltar para o mapa</a>
+    </nav>
+
+    <header class="guia-header">
+      <div class="guia-cabecalho">
+        <svg class="marca" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path d="M0 0H24A24 24 0 0 1 0 24Z"/>
+          <path d="M48 0V24A24 24 0 0 1 24 0Z"/>
+          <path d="M0 48V24A24 24 0 0 1 24 48Z"/>
+          <path d="M48 48H24A24 24 0 0 1 48 24Z"/>
+        </svg>
+        <h1>Como calculamos</h1>
+        <nav class="guia-cabecalho-links" aria-label="Páginas">
+          <a href="ajuda.html">Como usar</a>
+          <a href="metodologia.html" aria-current="page">Como calculamos</a>
+          <a href="desenvolvedor.html">Desenvolvedor</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="guia-secao">
+        <p>Esta página explica as contas que o Transecto Climático faz com os seus arquivos: como lemos a tabela do termohigrômetro e o trajeto, como cruzamos horários, como calculamos distâncias e médias, e o que aparece na figura. Cada fórmula aqui é a que está no código. A lista de arquivos, no fim, traz o link para cada um.</p>
+        <p class="guia-destaque">Os cálculos são fórmulas determinísticas, executadas no seu navegador: os mesmos arquivos geram sempre o mesmo resultado, e nenhum modelo de inteligência artificial participa deles.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>1. Como lemos a tabela do termohigrômetro</h2>
+        <p><strong>Separador.</strong> O app olha as primeiras 30 linhas. Se pelo menos metade tem ponto e vírgula, o separador é ponto e vírgula; se não, tabulação; se não, vírgula. Planilhas (.xlsx e .xls) usam a primeira aba.</p>
+        <p><strong>Título e cabeçalho.</strong> Linhas de título e de preâmbulo são ignoradas. O cabeçalho é a última linha antes dos dados que tem colunas reconhecidas. Uma linha de unidades logo abaixo do cabeçalho (como <code>°C</code> ou <code>%</code>) também é pulada.</p>
+        <p><strong>Colunas reconhecidas.</strong> O app compara o nome da coluna sem acento, sem maiúsculas e sem unidade. Por exemplo, <code>Temp_C</code>, <code>T(°C)</code> e <code>oC</code> viram temperatura; <code>%RH</code> vira umidade.</p>
+        <table class="guia-tabela">
+          <thead><tr><th scope="col">O que é</th><th scope="col">Nomes aceitos</th></tr></thead>
+          <tbody>
+            <tr><td>Data e hora</td><td>timestamp, datetime, data hora, data e hora; ou data e hora em colunas separadas (time, horario, hora local)</td></tr>
+            <tr><td>Temperatura</td><td>temperatura, temperature, temp, t, air temp, oC</td></tr>
+            <tr><td>Umidade</td><td>umidade, umidade relativa, humidity, relative humidity, rh, ur, umid</td></tr>
+            <tr><td>Ponto de orvalho</td><td>orvalho, dew point, dewpoint, td, ponto de orvalho, dew, dp</td></tr>
+            <tr><td>Altitude</td><td>altitude, elevacao, elevation, elev, alt, altura, ele</td></tr>
+            <tr><td>Numeração (ignorada)</td><td>No., Index, #, id, row, SN. Nunca vira data nem valor.</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Números.</strong> Aceita ponto ou vírgula decimal. Quando tem os dois, o último é o decimal: <code>1.085,5</code> vale 1085,5.</p>
+        <p><strong>Formatos de data.</strong> <code>2026-06-08</code> (ano primeiro); <code>08/06/2026</code>, <code>08.06.2026</code> e <code>08-06-2026</code> (dia primeiro, com barra, ponto ou hífen); <code>08-06-26</code> (ano com 2 dígitos); número serial do Excel. Horas como <code>21:00:00</code>, com AM/PM e com fuso (<code>Z</code>, <code>+03:00</code>).</p>
+        <p><strong>Dia e mês trocados.</strong> Se a data pode ser lida de dois jeitos (por exemplo, 03/04/2026), o app escolhe o jeito que deixa os horários em ordem crescente, e avisa. Sem essa pista, usa dia/mês. Com ano de 2 dígitos (<code>08-06-26</code>), vale 8 de junho de 2026; só vira 2008-06-26 se a ordem dos horários pedir isso.</p>
+        <p><strong>Linhas inválidas.</strong> Linha sem horário ou sem valor fica de fora e entra num aviso com a contagem.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>2. Como detectamos o fuso</h2>
+        <p>O relógio do aparelho e o do GPS podem estar em fusos diferentes. O app testa todos os deslocamentos de horas inteiras, de −14 a +14, e escolhe o que deixa mais tempo em comum entre as duas séries de horários. Se dois fusos empatam, prefere −3 (Brasília). Quem não tem horário no trajeto não tem fuso a detectar. A tela mostra o fuso reconhecido e deixa você corrigir o número no campo de fuso.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>3. Cruzamento por horário</h2>
+        <p>Para cada ponto do trajeto, somamos o fuso ao horário do ponto e procuramos a leitura logo antes e a logo depois. Os valores são interpolados em linha reta entre as duas:</p>
+        <pre class="guia-formula">f = (t − t1) / (t2 − t1)
+valor = v1 + (v2 − v1) × f</pre>
+        <p>Aqui <code>t</code> é o horário do ponto (com o fuso), <code>t1</code> e <code>t2</code> os horários das duas leituras em volta, e <code>v1</code> e <code>v2</code> os valores nelas.</p>
+        <p class="guia-exemplo"><strong>Exemplo.</strong> Leituras às 12:00:00 (10,0 °C) e às 12:01:00 (20,0 °C). Um ponto às 12:00:15: f = 15 / 60 = 0,25, e o valor é 10 + (20 − 10) × 0,25 = <strong>12,5 °C</strong>.</p>
+        <p><strong>Tolerância de 5 minutos.</strong> Se a leitura mais próxima está a mais de 5 minutos do ponto, o ponto fica sem dado e aparece em cinza. Exatamente 5 minutos ainda vale. Se só uma das duas leituras em volta tem o valor, usa a mais próxima.</p>
+        <p><strong>Altitude.</strong> Se o trajeto traz altitude, ela é usada; se não, usamos a do aparelho.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>4. Distância</h2>
+        <p>A distância entre dois pontos consecutivos é a fórmula de haversine, com raio da Terra de 6.371.000 m:</p>
+        <pre class="guia-formula">d = 2 · R · asin( √( sen²(Δφ/2) + cos φ1 · cos φ2 · sen²(Δλ/2) ) )</pre>
+        <p>A distância acumulada é a soma dessas distâncias desde o início da linha. <strong>Exemplo:</strong> 1 grau de longitude no equador dá 111.195 m.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>5. Ponto de orvalho</h2>
+        <p>Quando o aparelho traz o ponto de orvalho (DP), usamos o dele. Quando não traz, calculamos pela fórmula de Magnus, com a = 17,625 e b = 243,04:</p>
+        <pre class="guia-formula">γ = ln(UR / 100) + a · T / (b + T)
+Td = b · γ / (a − γ)</pre>
+        <p>T é a temperatura em °C e UR a umidade relativa em %. Sem umidade maior que zero, não há cálculo.</p>
+        <p class="guia-exemplo"><strong>Exemplo.</strong> 20 °C e 50 % de umidade: γ = ln(0,5) + 17,625 · 20 / (243,04 + 20) = 0,6470, e Td = 243,04 · 0,6470 / (17,625 − 0,6470) = <strong>9,26 °C</strong>.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>6. Média móvel (suavização da linha)</h2>
+        <p>A linha pode ser suavizada com uma média móvel centrada em metros: 25, 50, 100 ou 200 m. A opção inicial da tela é 50 m. Para cada ponto, fazemos a média de todos os pontos a até metade da janela, para cada lado (a janela é centrada no ponto). Valores vazios não entram na média, e um ponto vazio continua vazio.</p>
+        <p class="guia-exemplo"><strong>Exemplo.</strong> Janela de 20 m (10 m para cada lado). Pontos a 0, 10, 20, 30 e 40 m, com valores 1, 2, 3, 4 e 5. No ponto de 0 m entram os pontos de 0 e 10 m: média 1,5. No de 20 m entram os de 10, 20 e 30 m: média 3.</p>
+        <p><strong>Atenção.</strong> Depois da suavização, a linha, as médias por trecho e o resumo usam os valores suavizados. Picos curtos ficam menores.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>7. Azulejos (trechos)</h2>
+        <p><strong>Tamanho do trecho.</strong> O app escolhe o menor tamanho entre 50, 100, 200, 250, 500 e 1000 m que dê no máximo 40 trechos. Por exemplo, um trajeto de 3 km: com 50 m dariam 60 trechos, então usa 100 m (30 trechos). Se nem 1000 m couber (trajeto acima de 40 km), usa 1000 m.</p>
+        <p><strong>Média.</strong> A linha é cortada pela distância acumulada. Cada trecho recebe a média de cada variável entre os pontos que caem nele, ignorando os vazios. Trecho sem pontos fica sem média. A cor do azulejo segue a escala do mapa, pela média do trecho.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>8. Modo sem horário</h2>
+        <p>Quando o trajeto não tem horário, as leituras são distribuídas ao longo da linha pela distância. A primeira leitura fica no início, a última no fim, e os pontos do meio seguem a fração da distância percorrida: a posição é (d / total) × (N − 1), com interpolação entre as leituras vizinhas.</p>
+        <p>Você pode informar em que horário a caminhada começou e terminou. Só as leituras entre esses dois horários entram. A opção <em>inverter</em> percorre a linha do fim para o começo.</p>
+        <p>A velocidade estimada é a distância total dividida pela duração. O app mostra também os metros por leitura. Se a velocidade ficar abaixo de 0,3 m/s ou acima de 3 m/s, aparece um aviso de ritmo incomum.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>9. Estatísticas do resumo</h2>
+        <p>Média = soma dos valores ÷ quantidade de valores. Mínimo e máximo são os menores e maiores valores. Vazios não entram. O texto do resumo traz a média, o mínimo, o máximo, a distância, a duração e a quantidade de pontos sem dado.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>10. Cores da linha</h2>
+        <p>Cada trecho da linha entre dois pontos recebe a cor da média dos valores desses dois pontos, na escala da variável. A escala vai do menor ao maior valor mostrado. Ponto sem valor aparece em cinza. A temperatura vai do azul ao vermelho; a umidade, do amarelo ao azul-escuro; o ponto de orvalho, do verde-claro ao azul-escuro; a altitude, do verde ao vermelho.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>11. O que a figura mostra</h2>
+        <p>O PNG para relatório tem 2400 × 1600 pixels e traz:</p>
+        <ul>
+          <li>título, resumo e a data da medição, no formato dd/mm/aaaa, pelo horário dos pontos (fuso de Brasília por padrão);</li>
+          <li>a linha colorida, com contorno branco, e as marcas Início (verde) e Fim (vermelho);</li>
+          <li>o mapa de fundo (OpenStreetMap ou satélite Esri), com zoom escolhido para o trajeto ocupar 84 % da área, com 8 % de margem em cada lado. Se o fundo não carregar, aparece um fundo liso com a frase "mapa de fundo indisponível";</li>
+          <li>a legenda, com gradiente e cinco valores, sempre com uma casa decimal;</li>
+          <li>a barra de escala, com o maior valor entre 50 m e 50 km que cabe em 360 pixels; a indicação de norte; a atribuição do mapa; e "Fonte: Transecto Climático, LCGEA/UnB".</li>
+        </ul>
+      </section>
+
+      <section class="guia-secao">
+        <h2>12. Limitações</h2>
+        <ul>
+          <li><strong>Relógio do aparelho desencontrado do GPS.</strong> O fuso é estimado em horas inteiras. Diferenças de minutos ou segundos entre os dois relógios não são corrigidas. Um atraso de 1 minuto desloca cada valor para o ponto errado do trajeto.</li>
+          <li><strong>Atraso de resposta do sensor.</strong> O termohigrômetro leva alguns segundos para acompanhar mudanças de temperatura e de umidade, e o tempo depende do modelo. Ao andar, a leitura pode refletir o trecho anterior. O app não corrige esse atraso.</li>
+          <li><strong>Ritmo constante no modo sem horário.</strong> Sem horário, a leitura é posicionada supondo velocidade constante. Paradas, subidas e mudanças de ritmo deslocam as leituras ao longo da linha.</li>
+          <li><strong>Suavização.</strong> A média móvel reduz picos reais. As estatísticas são calculadas sobre a linha suavizada.</li>
+        </ul>
+      </section>
+
+      <section class="guia-secao">
+        <h2>Scripts</h2>
+        <p>Os arquivos da pasta <code>js/</code>, com o que cada um faz:</p>
+        <table class="guia-tabela">
+          <thead><tr><th scope="col">Arquivo</th><th scope="col">O que faz</th></tr></thead>
+          <tbody>
+            <tr><td><a href="https://github.com/guedeszx1/transecto-climatico/blob/main/js/azulejos.js" target="_blank" rel="noopener">azulejos.js</a></td><td>Faixa de azulejos: um azulejo por trecho, com a cor pela média e a cor do texto por contraste.</td></tr>
+            <tr><td><a href="https://github.com/guedeszx1/transecto-climatico/blob/main/js/cruzar.js" target="_blank" rel="noopener">cruzar.js</a></td><td>Cruzamento por horário, detecção de fuso, distância (haversine), ponto de orvalho (Magnus), média móvel, trechos, estatísticas e exportação em CSV e GeoJSON.</td></tr>
+            <tr><td><a href="https://github.com/guedeszx1/transecto-climatico/blob/main/js/figura.js" target="_blank" rel="noopener">figura.js</a></td><td>Gera o PNG do relatório, com mapa de fundo, linha, legenda, escala e créditos.</td></tr>
+            <tr><td><a href="https://github.com/guedeszx1/transecto-climatico/blob/main/js/main.js" target="_blank" rel="noopener">main.js</a></td><td>A tela: arquivos, ajustes, abas de variável, resumo, legenda e downloads.</td></tr>
+            <tr><td><a href="https://github.com/guedeszx1/transecto-climatico/blob/main/js/mapa.js" target="_blank" rel="noopener">mapa.js</a></td><td>O mapa Leaflet: cores por segmento, balão do ponto e destaque de trecho.</td></tr>
+            <tr><td><a href="https://github.com/guedeszx1/transecto-climatico/blob/main/js/parsers.js" target="_blank" rel="noopener">parsers.js</a></td><td>Leitura da tabela do termohigrômetro (CSV, TSV, XLSX) e do trajeto (KML, KMZ, GPX), com limites de tamanho.</td></tr>
+            <tr><td><a href="https://github.com/guedeszx1/transecto-climatico/blob/main/js/rotear.js" target="_blank" rel="noopener">rotear.js</a></td><td>Decide, pela extensão, se um arquivo é tabela, trajeto ou nada.</td></tr>
+            <tr><td><a href="https://github.com/guedeszx1/transecto-climatico/blob/main/js/trabalhador.js" target="_blank" rel="noopener">trabalhador.js</a></td><td>Roda o cálculo pesado em segundo plano (Worker): cruza, suaviza e monta os trechos.</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer class="guia-rodape">
+      <a href="index.html" class="guia-voltar">Voltar para o mapa</a>
+      <span style="color: var(--suave); font-size: 13px;">Transecto Climático</span>
+    </footer>
+  </div>
+  <footer class="rodape">
+    <a href="metodologia.html">Como calculamos</a>
+    <a href="privacidade.html">Privacidade</a>
+    <a href="termos.html">Termos</a>
+    <a href="licencas.html">Licenças</a>
+  </footer>
+</body>
+</html>

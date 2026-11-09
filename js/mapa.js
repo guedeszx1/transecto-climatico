@@ -56,11 +56,11 @@ export function gradienteCss(variavel) {
 export function criarMapa(elemento) {
   const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '© OpenStreetMap',
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">colaboradores do OpenStreetMap</a>',
   });
   const satelite = L.tileLayer(
     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    { maxZoom: 19, attribution: 'Esri, Maxar, Earthstar Geographics' }
+    { maxZoom: 19, attribution: 'Powered by Esri | Fontes: Esri, Maxar, Earthstar Geographics' }
   );
   const mapa = L.map(elemento, {
     center: [-15, -50],
@@ -84,6 +84,32 @@ function formatarTempo(t, fusoHoras) {
 
 function formatarValor(v, casas) {
   return v === null || v === undefined ? '—' : v.toFixed(casas);
+}
+
+// Balão do ponto: monta elementos e usa textContent. Nada aqui vira HTML, mesmo que um
+// valor do arquivo tenha caracteres estranhos.
+function tooltipDoPonto(a, fusoHoras, rotulo) {
+  const caixa = document.createElement('div');
+  const linha = (negrito, texto) => {
+    const div = document.createElement('div');
+    if (negrito) {
+      const b = document.createElement('b');
+      b.textContent = `${negrito} `;
+      div.appendChild(b);
+    }
+    div.appendChild(document.createTextNode(texto));
+    caixa.appendChild(div);
+  };
+  if (a.t !== null && a.t !== undefined) linha('Horário:', formatarTempo(a.t, fusoHoras));
+  linha('Distância:', a.dist >= 1000 ? (a.dist / 1000).toFixed(2) + ' km' : a.dist.toFixed(0) + ' m');
+  linha('Temperatura:', `${formatarValor(a.temp, 1)} °C`);
+  linha('Umidade:', `${formatarValor(a.umid, 1)} %`);
+  linha('Orvalho:', `${formatarValor(a.orvalho, 1)} °C`);
+  linha('Altitude:', `${formatarValor(a.alt, 0)} m`);
+  const pequeno = document.createElement('small');
+  pequeno.textContent = rotulo;
+  caixa.appendChild(pequeno);
+  return caixa;
 }
 
 const proximoQuadro = () => new Promise((resolver) => requestAnimationFrame(() => resolver()));
@@ -142,17 +168,7 @@ export async function desenharTrajeto(mapa, pontos, variavel, fusoHoras, opcoes 
       opacity: 1,
       renderer,
     });
-    seg.bindTooltip(() => {
-      const linhas = [];
-      if (a.t !== null && a.t !== undefined) linhas.push(`<b>Horário:</b> ${formatarTempo(a.t, fusoHoras)}`);
-      linhas.push(`<b>Distância:</b> ${a.dist >= 1000 ? (a.dist / 1000).toFixed(2) + ' km' : a.dist.toFixed(0) + ' m'}`);
-      linhas.push(`<b>Temperatura:</b> ${formatarValor(a.temp, 1)} °C`);
-      linhas.push(`<b>Umidade:</b> ${formatarValor(a.umid, 1)} %`);
-      linhas.push(`<b>Orvalho:</b> ${formatarValor(a.orvalho, 1)} °C`);
-      linhas.push(`<b>Altitude:</b> ${formatarValor(a.alt, 0)} m`);
-      linhas.push(`<small>${rotulo}</small>`);
-      return linhas.join('<br>');
-    }, { sticky: true });
+    seg.bindTooltip(() => tooltipDoPonto(a, fusoHoras, rotulo), { sticky: true });
     if (aoPassar) {
       seg.on('mouseover', () => aoPassar(i));
       seg.on('click', () => aoPassar(i));

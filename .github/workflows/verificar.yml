@@ -1,0 +1,35 @@
+name: Verificar site e dependências
+
+on:
+  schedule:
+    - cron: "17 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Site no ar e somente em HTTPS
+        run: |
+          U=https://guedeszx1.github.io/transecto-climatico/
+          test "$(curl -s -o /dev/null -w '%{http_code}' "$U")" = 200
+          test "$(curl -s -o /dev/null -w '%{http_code}' "${U/https/http}")" = 301
+
+      - name: Vulnerabilidades conhecidas nas bibliotecas
+        run: |
+          # GHSA-4r6h-8v6p-xvw6 e GHSA-5pgg-2g8v-p4x9 atingem o xlsx até 0.19.2 e antes de 0.20.2.
+          # Usamos 0.20.3, da distribuição oficial; o registro do npm marca todas as versões.
+          IGNORADAS='GHSA-4r6h-8v6p-xvw6|GHSA-5pgg-2g8v-p4x9'
+          falhou=0
+          for item in leaflet:1.9.4 jszip:3.10.1 xlsx:0.20.3; do
+            nome=${item%:*}; versao=${item#*:}
+            ids=$(curl -s https://api.osv.dev/v1/query \
+              -d "{\"version\":\"$versao\",\"package\":{\"name\":\"$nome\",\"ecosystem\":\"npm\"}}" \
+              | jq -r '.vulns // [] | .[].id' | grep -Ev "$IGNORADAS" || true)
+            if [ -n "$ids" ]; then echo "$nome@$versao: $ids"; falhou=1; else echo "$nome@$versao: sem alertas novos"; fi
+          done
+          exit "$falhou"

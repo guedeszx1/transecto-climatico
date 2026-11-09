@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Política de Privacidade e de Cookies — Transecto Climático</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org https://server.arcgisonline.com; connect-src 'self' https://*.tile.openstreetmap.org https://tile.openstreetmap.org https://server.arcgisonline.com; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="css/app.css">
+  <style>
+    .guia-corpo {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 24px 18px 64px;
+    }
+
+    .guia-nav {
+      margin-bottom: 20px;
+    }
+
+    .guia-voltar {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border: 1px solid var(--controle);
+      border-radius: 0;
+      background: transparent;
+      color: var(--cobalto);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .guia-voltar:hover {
+      border-color: var(--cobalto);
+      background: var(--cobalto-palido);
+    }
+
+    .guia-header {
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--rejunte);
+      margin-bottom: 24px;
+    }
+
+    .guia-cabecalho {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .guia-cabecalho .marca {
+      flex: none;
+      width: 32px;
+      height: 32px;
+    }
+
+    .guia-cabecalho h1 {
+      flex: 1;
+      min-width: 0;
+      margin: 0;
+      font-size: 26px;
+      font-weight: 800;
+      font-stretch: 125%;
+      line-height: 1.2;
+    }
+
+    .guia-cabecalho-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: none;
+    }
+
+    .guia-cabecalho-links a {
+      color: var(--cobalto);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .guia-cabecalho-links a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .guia-subtitulo {
+      margin: 0;
+      color: var(--suave);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .guia-secao {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 2px solid var(--rejunte);
+    }
+
+    .guia-secao:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .guia-secao h2 {
+      font-size: 18px;
+      font-weight: 700;
+      font-stretch: 115%;
+      margin: 0 0 12px;
+      color: var(--tinta);
+    }
+
+    .guia-secao h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 18px 0 6px;
+      color: var(--tinta);
+    }
+
+    .guia-secao p {
+      margin: 0 0 12px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--tinta);
+    }
+
+    .guia-secao ul {
+      margin: 0 0 14px;
+      padding-left: 20px;
+    }
+
+    .guia-secao li {
+      margin-bottom: 8px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .guia-secao li strong {
+      font-weight: 700;
+    }
+
+    .guia-secao a {
+      color: var(--cobalto);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .nota {
+      margin: 16px 0;
+      padding: 12px 14px;
+      background: var(--aviso-fundo);
+      border-radius: 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .nota p {
+      margin: 0;
+    }
+
+    .guia-rodape {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 2px solid var(--rejunte);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .guia-corpo {
+        padding: 16px 12px 48px;
+      }
+
+      .guia-cabecalho {
+        gap: 8px;
+      }
+
+      .guia-cabecalho .marca {
+        width: 24px;
+        height: 24px;
+      }
+
+      .guia-cabecalho h1 {
+        font-size: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .guia-cabecalho-links {
+        gap: 8px;
+      }
+
+      .guia-cabecalho-links a {
+        font-size: 13px;
+      }
+
+      .guia-voltar {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="guia-corpo">
+    <nav class="guia-nav" aria-label="Navegação">
+      <a href="index.html" class="guia-voltar">Voltar para o mapa</a>
+    </nav>
+
+    <header class="guia-header">
+      <div class="guia-cabecalho">
+        <svg class="marca" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path d="M0 0H24A24 24 0 0 1 0 24Z"/>
+          <path d="M48 0V24A24 24 0 0 1 24 0Z"/>
+          <path d="M0 48V24A24 24 0 0 1 24 48Z"/>
+          <path d="M48 48H24A24 24 0 0 1 48 24Z"/>
+        </svg>
+        <h1>Política de Privacidade e de Cookies</h1>
+        <nav class="guia-cabecalho-links" aria-label="Páginas">
+          <a href="ajuda.html">Como usar</a>
+          <a href="desenvolvedor.html">Desenvolvedor</a>
+        </nav>
+      </div>
+      <p class="guia-subtitulo">Atualizado em 08/11/2026</p>
+    </header>
+
+    <main>
+      <section class="guia-secao">
+        <h2>Responsável pelo site e contato</h2>
+        <p>O Transecto Climático é mantido por Rafael Guedes, integrante do LCGEA, da Universidade de Brasília (UnB).</p>
+        <p>Conforme o art. 9º da <a href="http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">Lei nº 13.709/2018 (Lei Geral de Proteção de Dados - LGPD)</a>, o canal de contato para dúvidas ou solicitações é a abertura de uma issue no repositório do projeto em <a href="https://github.com/guedeszx1/transecto-climatico/issues" target="_blank" rel="noopener">https://github.com/guedeszx1/transecto-climatico/issues</a>.</p>
+        <p>Como o responsável não trata dados pessoais, não há encarregado indicado (art. 41 da LGPD). O canal acima atende às dúvidas sobre privacidade.</p>
+        <div class="nota">
+          <p><strong>Aviso importante:</strong> ao abrir uma issue, não insira dados pessoais (como nome completo, telefone, endereço ou e-mail pessoal) nem no texto nem em arquivos anexados, pois o espaço é público.</p>
+        </div>
+      </section>
+
+      <section class="guia-secao">
+        <h2>Processamento local e ausência de dados pessoais</h2>
+        <p>Este site não possui cadastro de usuário, login, formulários para envio de dados, banco de dados, sistemas de análise de tráfego (analytics) nem anúncios publicitários.</p>
+        <p>Os arquivos que você envia (planilhas do termohigrômetro e trajetos GPS) são processados exclusivamente na memória do navegador do seu próprio computador ou celular. Esses arquivos <strong>não são enviados ao responsável nem a servidor algum</strong> e somem da memória imediatamente ao fechar ou recarregar a página.</p>
+        <p>Por esse motivo, não existem dados pessoais tratados pelo responsável pelo site para acessar, corrigir, excluir ou reter. A seguir, explica-se essa condição item a item:</p>
+        <ul>
+          <li><strong>Finalidade (art. 9º da LGPD):</strong> a única finalidade do site é permitir que a pessoa processe seus próprios arquivos e explore a rota climática localmente em seu navegador. O responsável não coleta nem trata dados pessoais para essa finalidade.</li>
+          <li><strong>Bases legais (art. 7º da LGPD):</strong> o art. 7º da <a href="http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">Lei nº 13.709/2018</a> elenca as hipóteses legais para tratamento de dados pessoais. Como o responsável não coleta, não recebe e não armazena dados pessoais em servidores próprios, inexiste operação de tratamento sob o art. 7º pelo responsável.</li>
+          <li><strong>Minimização:</strong> a ferramenta adota minimização absoluta, funcionando plenamente sem coletar qualquer dado pessoal de identificação da pessoa usuária.</li>
+          <li><strong>Direitos do titular (art. 18 da LGPD):</strong> o art. 18 da <a href="http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">Lei nº 13.709/2018</a> assegura direitos como confirmação de tratamento, acesso, correção, anonimização, bloqueio, eliminação e revogação perante o controlador. Como o responsável não possui qualquer dado pessoal ou arquivo sob sua guarda, não há registros que possam ser confirmados, exibidos, alterados ou deletados pelo responsável.</li>
+          <li><strong>Exclusão e retenção:</strong> os dados permanecem temporariamente na memória volátil da aba aberta. O responsável não retém nenhum dado; ao fechar a aba ou atualizar a página, a memória é liberada e os dados deixam de existir.</li>
+        </ul>
+      </section>
+
+      <section class="guia-secao">
+        <h2>Sem cookies e sem armazenamento local</h2>
+        <p>O site não grava cookies no seu dispositivo, nem usa armazenamento local (como localStorage ou sessionStorage) para guardar informações de navegação ou criar identificadores.</p>
+        <p>Por não utilizar cookies nem realizar qualquer rastreamento, o site não exibe banner de consentimento de cookies, pois não há coleta de dados nem permissão a ser concedida.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>Serviços de terceiros e registros de rede</h2>
+        <p>Ao navegar pelo site, requisições de rede são enviadas diretamente pelo seu navegador a serviços terceiros de infraestrutura, cada um com sua própria política e responsabilidade:</p>
+        <ul>
+          <li>
+            <strong>GitHub Pages:</strong> o site é hospedado pelo GitHub Pages. De acordo com a <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub Privacy Statement</a> e as diretrizes do <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages" target="_blank" rel="noopener">About GitHub Pages</a>, os servidores do GitHub registram automaticamente o endereço IP dos visitantes em logs de infraestrutura para fins de segurança e integridade operacional. O responsável pelo site não tem acesso a esses registros de IP.
+          </li>
+          <li>
+            <strong>OpenStreetMap:</strong> para exibir o mapa base, o navegador solicita os quadros (tiles) aos servidores da OpenStreetMap Foundation. Conforme a <a href="https://wiki.osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener">OSMF Privacy Policy</a> e a <a href="https://operations.osmfoundation.org/policies/tiles/" target="_blank" rel="noopener">OSMF Tile Usage Policy</a>, os servidores registram o endereço IP do visitante, URL requisitada, timestamp, Referer e User-Agent para segurança e prevenção de abusos.
+          </li>
+          <li>
+            <strong>Esri:</strong> se você selecionar a camada de imagem de satélite, o navegador busca os quadros nos servidores da Esri (ArcGIS Online), conforme os <a href="https://www.esri.com/en-us/legal/copyright-trademarks" target="_blank" rel="noopener">Esri Legal Terms</a>.
+          </li>
+        </ul>
+        <div class="nota">
+          <p><strong>Atenção sobre o mapa de fundo e o trajeto:</strong> o arquivo do seu trajeto e as medições climáticas <em>não são enviados</em> ao OpenStreetMap nem à Esri. No entanto, para exibir o mapa de fundo da área em que você caminhou, o navegador solicita os quadros daquela localidade. Os servidores de mapas recebem o seu endereço IP, o cabeçalho Referer e quais quadros foram pedidos, o que pode indicar a região geográfica aproximada em que o trajeto foi realizado.</p>
+        </div>
+        <p>Esses serviços de terceiros podem operar e manter servidores fora do Brasil. O responsável pelo site não contratou operadores (nos termos do art. 5º da <a href="http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">Lei nº 13.709/2018</a>) para tratar dados pessoais em seu nome.</p>
+        <p>Caso ocorram incidentes de segurança cibernética que envolvam dados pessoais sob responsabilidade de terceiros, a apuração e as comunicações cabem a esses terceiros, nos termos do art. 48 da <a href="http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">Lei nº 13.709/2018</a> e dos prazos estabelecidos pela <a href="https://www.in.gov.br/en/web/dou/-/resolucao-cd/anpd-n-15-de-24-de-abril-de-2024-556108422" target="_blank" rel="noopener">Resolução CD/ANPD nº 15/2024</a>.</p>
+      </section>
+    </main>
+
+    <footer class="guia-rodape">
+      <a href="index.html" class="guia-voltar">Voltar para o mapa</a>
+      <span style="color: var(--suave); font-size: 13px;">Transecto Climático</span>
+    </footer>
+    <footer class="rodape">
+      <a href="metodologia.html">Como calculamos</a>
+      <a href="privacidade.html" aria-current="page">Privacidade</a>
+      <a href="termos.html">Termos</a>
+      <a href="licencas.html">Licenças</a>
+    </footer>
+  </div>
+</body>
+</html>

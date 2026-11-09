@@ -247,6 +247,26 @@ h2 {
   color: var(--cobalto);
 }
 
+.rodape {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 2px solid var(--rejunte);
+  font-size: 13px;
+}
+
+.rodape a {
+  color: var(--suave);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.rodape a:hover {
+  color: var(--cobalto);
+}
+
 .envio-aviso {
   margin: 10px 0 0;
   padding: 10px 12px;

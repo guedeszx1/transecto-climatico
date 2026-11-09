@@ -417,14 +417,43 @@ function escolherOrdem(tempos) {
 // Termohigrômetro
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Limites contra arquivo grande demais ou malicioso (bytes)
+// ---------------------------------------------------------------------------
+
+const MB = 1024 * 1024;
+export const LIMITES = {
+  tabela: 100 * MB,            // termohigrômetro (CSV, TSV, XLSX)
+  trajeto: 100 * MB,           // KML, GPX e KMZ compactado
+  kmzDescompactado: 200 * MB,  // KML de dentro do KMZ
+};
+
+// Tamanho em bytes: texto conta caracteres (aproximação), ArrayBuffer conta bytes.
+function tamanhoDe(entrada) {
+  if (typeof entrada === 'string') return entrada.length;
+  return entrada && typeof entrada.byteLength === 'number' ? entrada.byteLength : 0;
+}
+
+const mbTxt = (b) => `${(Math.round((b / MB) * 10) / 10).toString().replace('.', ',')} MB`;
+
+function estourou(tamanho, limite, quem) {
+  return tamanho > limite
+    ? `${quem} grande demais: ${mbTxt(tamanho)}. O limite é ${mbTxt(limite)}.`
+    : null;
+}
+
 /**
  * @param {string|ArrayBuffer} entrada conteúdo do arquivo
  * @param {string} nomeArquivo nome com extensão (.csv .txt .tsv .xlsx .xls)
  * @param {object} [mapeamento] nomes das colunas escolhidos pelo usuário
+ * @param {object} [limites] limites em bytes (padrão: LIMITES)
  * @returns {{colunas: string[], mapeamento: object, leituras: object[], avisos: string[]}}
  */
-export function lerLeituras(entrada, nomeArquivo = '', mapeamento = null) {
+export function lerLeituras(entrada, nomeArquivo = '', mapeamento = null, limites = LIMITES) {
   const avisos = [];
+  const L = { ...LIMITES, ...limites };
+  const grande = estourou(tamanhoDe(entrada), L.tabela, 'O arquivo da tabela é');
+  if (grande) return { colunas: [], mapeamento: nomesMapeamento(null, []), leituras: [], avisos: [grande] };
   const tabela = lerTabela(entrada, nomeArquivo, avisos);
   if (!tabela.length) {
     avisos.push('Arquivo sem dados.');
@@ -603,10 +632,13 @@ function semRepetidosSeguidos(pontos) {
  * @param {string} nomeArquivo nome com extensão (.kml .kmz .gpx)
  * @returns {Promise<{pontos: object[], temTempo: boolean, nome: string, avisos: string[]}>}
  */
-export async function lerTrajeto(entrada, nomeArquivo = '') {
+export async function lerTrajeto(entrada, nomeArquivo = '', limites = LIMITES) {
   const avisos = [];
   const ext = extensao(nomeArquivo);
   const base = String(nomeArquivo).replace(/\.[^.]*$/, '') || 'trajeto';
+  const L = { ...LIMITES, ...limites };
+  const grande = estourou(tamanhoDe(entrada), L.trajeto, 'O arquivo do trajeto é');
+  if (grande) return { pontos: [], temTempo: false, nome: base, avisos: [grande] };
   try {
     let r;
     if (ext === 'kmz') {
@@ -616,7 +648,17 @@ export async function lerTrajeto(entrada, nomeArquivo = '') {
       if (!kmls.length) throw new Error('o KMZ não tem arquivo .kml dentro');
       const alvo = kmls.find((n) => /(^|\/)doc\.kml$/i.test(n)) || kmls[0];
       if (kmls.length > 1) avisos.push(`O KMZ tem ${kmls.length} arquivos KML. Usei ${alvo}.`);
-      r = lerKml(await zip.file(alvo).async('string'));
+      // Confere o tamanho declarado no zip antes de descompactar. O JSZip guarda esse valor
+      // em _data.uncompressedSize; se não existir, o confere é feito depois, no texto extraído.
+      const declarado = zip.files[alvo]._data && zip.files[alvo]._data.uncompressedSize;
+      const grandeKml = typeof declarado === 'number'
+        ? estourou(declarado, L.kmzDescompactado, 'O KML dentro do KMZ, descompactado, é')
+        : null;
+      if (grandeKml) throw new Error(grandeKml);
+      const texto = await zip.file(alvo).async('string');
+      const depois = estourou(tamanhoDe(texto), L.kmzDescompactado, 'O KML dentro do KMZ, descompactado, é');
+      if (depois) throw new Error(depois);
+      r = lerKml(texto);
     } else if (ext === 'kml') {
       r = lerKml(decodificar(entrada));
     } else if (ext === 'gpx') {

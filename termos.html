@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Termos de Uso — Transecto Climático</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org https://server.arcgisonline.com; connect-src 'self' https://*.tile.openstreetmap.org https://tile.openstreetmap.org https://server.arcgisonline.com; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="css/app.css">
+  <style>
+    .guia-corpo {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 24px 18px 64px;
+    }
+
+    .guia-nav {
+      margin-bottom: 20px;
+    }
+
+    .guia-voltar {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border: 1px solid var(--controle);
+      border-radius: 0;
+      background: transparent;
+      color: var(--cobalto);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .guia-voltar:hover {
+      border-color: var(--cobalto);
+      background: var(--cobalto-palido);
+    }
+
+    .guia-header {
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--rejunte);
+      margin-bottom: 24px;
+    }
+
+    .guia-cabecalho {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .guia-cabecalho .marca {
+      flex: none;
+      width: 32px;
+      height: 32px;
+    }
+
+    .guia-cabecalho h1 {
+      flex: 1;
+      min-width: 0;
+      margin: 0;
+      font-size: 26px;
+      font-weight: 800;
+      font-stretch: 125%;
+      line-height: 1.2;
+    }
+
+    .guia-cabecalho-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: none;
+    }
+
+    .guia-cabecalho-links a {
+      color: var(--cobalto);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .guia-cabecalho-links a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .guia-subtitulo {
+      margin: 0;
+      color: var(--suave);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .guia-secao {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 2px solid var(--rejunte);
+    }
+
+    .guia-secao:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .guia-secao h2 {
+      font-size: 18px;
+      font-weight: 700;
+      font-stretch: 115%;
+      margin: 0 0 12px;
+      color: var(--tinta);
+    }
+
+    .guia-secao p {
+      margin: 0 0 12px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--tinta);
+    }
+
+    .guia-secao ul {
+      margin: 0 0 14px;
+      padding-left: 20px;
+    }
+
+    .guia-secao li {
+      margin-bottom: 8px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .guia-secao li strong {
+      font-weight: 700;
+    }
+
+    .guia-secao a {
+      color: var(--cobalto);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .nota {
+      margin: 16px 0;
+      padding: 12px 14px;
+      background: var(--aviso-fundo);
+      border-radius: 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .nota p {
+      margin: 0;
+    }
+
+    .guia-rodape {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 2px solid var(--rejunte);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .guia-corpo {
+        padding: 16px 12px 48px;
+      }
+
+      .guia-cabecalho {
+        gap: 8px;
+      }
+
+      .guia-cabecalho .marca {
+        width: 24px;
+        height: 24px;
+      }
+
+      .guia-cabecalho h1 {
+        font-size: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .guia-cabecalho-links {
+        gap: 8px;
+      }
+
+      .guia-cabecalho-links a {
+        font-size: 13px;
+      }
+
+      .guia-voltar {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="guia-corpo">
+    <nav class="guia-nav" aria-label="Navegação">
+      <a href="index.html" class="guia-voltar">Voltar para o mapa</a>
+    </nav>
+
+    <header class="guia-header">
+      <div class="guia-cabecalho">
+        <svg class="marca" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path d="M0 0H24A24 24 0 0 1 0 24Z"/>
+          <path d="M48 0V24A24 24 0 0 1 24 0Z"/>
+          <path d="M0 48V24A24 24 0 0 1 24 48Z"/>
+          <path d="M48 48H24A24 24 0 0 1 48 24Z"/>
+        </svg>
+        <h1>Termos de Uso</h1>
+        <nav class="guia-cabecalho-links" aria-label="Páginas">
+          <a href="ajuda.html">Como usar</a>
+          <a href="desenvolvedor.html">Desenvolvedor</a>
+        </nav>
+      </div>
+      <p class="guia-subtitulo">Atualizado em 08/11/2026</p>
+    </header>
+
+    <main>
+      <section class="guia-secao">
+        <h2>Identificação do responsável</h2>
+        <p>O Transecto Climático é desenvolvido e mantido por Rafael Guedes, integrante do LCGEA, da Universidade de Brasília (UnB).</p>
+        <p>Para dúvidas, relatos de falhas ou sugestões, o canal de contato é a abertura de uma issue no repositório do projeto em <a href="https://github.com/guedeszx1/transecto-climatico/issues" target="_blank" rel="noopener">https://github.com/guedeszx1/transecto-climatico/issues</a>.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>Serviço gratuito, sem cobrança e sem assinatura</h2>
+        <p>O Transecto Climático é um serviço 100% gratuito, sem necessidade de cadastro, criação de conta ou login.</p>
+        <p>Não há cobrança de taxas, mensalidades, planos pagos nem assinaturas de nenhuma natureza. Consequentemente, não existem procedimentos de cancelamento, devolução ou reembolso financeiro.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>Sem publicidade e sem depoimentos</h2>
+        <p>O site não veicula publicidade, anúncios pagos nem conteúdos patrocinados de terceiros.</p>
+        <p>O site também não apresenta depoimentos de usuários, testemunhos comerciais ou recomendações de clientes.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>Natureza da ferramenta e ausência de garantia de exatidão</h2>
+        <p>O site é uma ferramenta de apoio visual e técnico para exploração e análise de dados climáticos e trajetos geográficos.</p>
+        <p>A ferramenta é oferecida "como está" (<em>as is</em>), sem qualquer garantia de exatidão absoluta, adequação a uma finalidade específica ou funcionamento contínuo e sem erros.</p>
+        <p>A pessoa usuária é a única responsável por conferir e validar os cálculos e as representações gráficas geradas antes de utilizá-los em relatórios técnicos, trabalhos científicos, projetos acadêmicos ou tomadas de decisão.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>Metodologia e limitações técnicas</h2>
+        <p>As fórmulas, etapas de interpolação e procedimentos metodológicos utilizados estão documentados em <a href="metodologia.html">Como calculamos (metodologia.html)</a>.</p>
+        <p>A pessoa que utiliza a ferramenta deve estar ciente das limitações inerentes ao método, detalhadas na página de metodologia, tais como:</p>
+        <ul>
+          <li><strong>Descompasso de relógios:</strong> diferenças entre o relógio interno do termohigrômetro e o horário do GPS afetam o alinhamento temporal e espacial dos pontos;</li>
+          <li><strong>Trajeto sem horário (ritmo constante):</strong> quando o trajeto enviado não traz o horário de cada ponto, o sistema supõe velocidade uniforme ao longo da distância, o que pode deslocar espacialmente os valores medidos caso tenha havido paradas ou mudanças de ritmo na caminhada.</li>
+        </ul>
+      </section>
+
+      <section class="guia-secao">
+        <h2>Responsabilidade pelos arquivos enviados</h2>
+        <p>Todo o processamento dos arquivos ocorre de forma local no navegador da própria pessoa usuária.</p>
+        <p>A pessoa usuária declara e garante que apenas envia arquivos de medição e de rota sobre os quais possui direito legítimo de posse, manuseio e uso, sendo a única responsável por qualquer infração de direitos de terceiros decorrente dos arquivos que utilizar.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>Alterações destes termos</h2>
+        <p>Estes Termos de Uso podem ser modificados a qualquer momento pelo responsável pelo site. Em caso de alteração, a nova versão será publicada nesta página acompanhada da respectiva data de atualização no topo.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>Limitação de responsabilidade</h2>
+        <p>Na máxima medida permitida pela legislação brasileira aplicável, o responsável não se responsabiliza por eventuais danos diretos, indiretos, incidentais ou consequenciais decorrentes do uso, da incapacidade de uso ou de eventuais divergências nas estimativas produzidas pela ferramenta.</p>
+        <p>Nada nestes termos afasta direitos que a legislação brasileira garante a quem usa o site.</p>
+      </section>
+    </main>
+
+    <footer class="guia-rodape">
+      <a href="index.html" class="guia-voltar">Voltar para o mapa</a>
+      <span style="color: var(--suave); font-size: 13px;">Transecto Climático</span>
+    </footer>
+    <footer class="rodape">
+      <a href="metodologia.html">Como calculamos</a>
+      <a href="privacidade.html">Privacidade</a>
+      <a href="termos.html" aria-current="page">Termos</a>
+      <a href="licencas.html">Licenças</a>
+    </footer>
+  </div>
+</body>
+</html>

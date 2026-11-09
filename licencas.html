@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Licenças — Transecto Climático</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org https://server.arcgisonline.com; connect-src 'self' https://*.tile.openstreetmap.org https://tile.openstreetmap.org https://server.arcgisonline.com; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="css/app.css">
+  <style>
+    .guia-corpo {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 24px 18px 64px;
+    }
+
+    .guia-nav {
+      margin-bottom: 20px;
+    }
+
+    .guia-voltar {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border: 1px solid var(--controle);
+      border-radius: 0;
+      background: transparent;
+      color: var(--cobalto);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .guia-voltar:hover {
+      border-color: var(--cobalto);
+      background: var(--cobalto-palido);
+    }
+
+    .guia-header {
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--rejunte);
+      margin-bottom: 24px;
+    }
+
+    .guia-cabecalho {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .guia-cabecalho .marca {
+      flex: none;
+      width: 32px;
+      height: 32px;
+    }
+
+    .guia-cabecalho h1 {
+      flex: 1;
+      min-width: 0;
+      margin: 0;
+      font-size: 26px;
+      font-weight: 800;
+      font-stretch: 125%;
+      line-height: 1.2;
+    }
+
+    .guia-cabecalho-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: none;
+    }
+
+    .guia-cabecalho-links a {
+      color: var(--cobalto);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .guia-cabecalho-links a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .guia-subtitulo {
+      margin: 0;
+      color: var(--suave);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .guia-secao {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 2px solid var(--rejunte);
+    }
+
+    .guia-secao:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .guia-secao h2 {
+      font-size: 18px;
+      font-weight: 700;
+      font-stretch: 115%;
+      margin: 0 0 12px;
+      color: var(--tinta);
+    }
+
+    .guia-secao p {
+      margin: 0 0 12px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--tinta);
+    }
+
+    .guia-secao a {
+      color: var(--cobalto);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .tabela-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 16px 0 20px;
+    }
+
+    .tabela-licencas {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .tabela-licencas th,
+    .tabela-licencas td {
+      padding: 10px 12px;
+      border: 1px solid var(--rejunte);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .tabela-licencas th {
+      background: var(--aviso-fundo);
+      font-weight: 700;
+      color: var(--tinta);
+      font-stretch: 110%;
+    }
+
+    .guia-rodape {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 2px solid var(--rejunte);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .guia-corpo {
+        padding: 16px 12px 48px;
+      }
+
+      .guia-cabecalho {
+        gap: 8px;
+      }
+
+      .guia-cabecalho .marca {
+        width: 24px;
+        height: 24px;
+      }
+
+      .guia-cabecalho h1 {
+        font-size: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .guia-cabecalho-links {
+        gap: 8px;
+      }
+
+      .guia-cabecalho-links a {
+        font-size: 13px;
+      }
+
+      .guia-voltar {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="guia-corpo">
+    <nav class="guia-nav" aria-label="Navegação">
+      <a href="index.html" class="guia-voltar">Voltar para o mapa</a>
+    </nav>
+
+    <header class="guia-header">
+      <div class="guia-cabecalho">
+        <svg class="marca" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path d="M0 0H24A24 24 0 0 1 0 24Z"/>
+          <path d="M48 0V24A24 24 0 0 1 24 0Z"/>
+          <path d="M0 48V24A24 24 0 0 1 24 48Z"/>
+          <path d="M48 48H24A24 24 0 0 1 48 24Z"/>
+        </svg>
+        <h1>Licenças</h1>
+        <nav class="guia-cabecalho-links" aria-label="Páginas">
+          <a href="ajuda.html">Como usar</a>
+          <a href="desenvolvedor.html">Desenvolvedor</a>
+        </nav>
+      </div>
+      <p class="guia-subtitulo">Atualizado em 08/11/2026</p>
+    </header>
+
+    <main>
+      <section class="guia-secao">
+        <h2>Componentes de terceiros</h2>
+        <p>O Transecto Climático utiliza bibliotecas, fontes e bases cartográficas abertas sob as seguintes licenças:</p>
+        <div class="tabela-container">
+          <table class="tabela-licencas">
+            <thead>
+              <tr>
+                <th scope="col">Componente</th>
+                <th scope="col">Licença</th>
+                <th scope="col">Link / Arquivo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Leaflet 1.9.4</td>
+                <td>BSD-2-Clause</td>
+                <td><a href="vendor/leaflet/LICENSE">vendor/leaflet/LICENSE</a></td>
+              </tr>
+              <tr>
+                <td>JSZip 3.10.1</td>
+                <td>MIT (uma das opções da sua licença dupla)</td>
+                <td><a href="vendor/LICENSE-jszip.txt">vendor/LICENSE-jszip.txt</a></td>
+              </tr>
+              <tr>
+                <td>SheetJS CE 0.20.3</td>
+                <td>Apache-2.0</td>
+                <td><a href="vendor/LICENSE-sheetjs.txt">vendor/LICENSE-sheetjs.txt</a></td>
+              </tr>
+              <tr>
+                <td>Fonte Archivo</td>
+                <td>SIL OFL 1.1</td>
+                <td><a href="vendor/fontes/LICENSE-OFL.txt">vendor/fontes/LICENSE-OFL.txt</a></td>
+              </tr>
+              <tr>
+                <td>Mapa de fundo e rota do exemplo</td>
+                <td>ODbL (Open Database License)</td>
+                <td>Dados © colaboradores do OpenStreetMap, disponíveis em <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">https://www.openstreetmap.org/copyright</a></td>
+              </tr>
+              <tr>
+                <td>Imagens de satélite</td>
+                <td>Termos de uso Esri</td>
+                <td>Esri e seus fornecedores, conforme <a href="https://developers.arcgis.com/documentation/mapping-apis-and-services/deployment/basemap-attribution/" target="_blank" rel="noopener">ArcGIS Basemap Attribution</a> e <a href="https://www.esri.com/en-us/legal/copyright-trademarks" target="_blank" rel="noopener">Esri Legal Terms</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="guia-secao">
+        <h2>Exemplo do site</h2>
+        <p>Os dados climáticos do exemplo são fictícios, sobre uma rota por ruas calculada com dados do OpenStreetMap, e servem só para demonstração.</p>
+      </section>
+
+      <section class="guia-secao">
+        <h2>Código próprio do site</h2>
+        <p>Todos os direitos reservados a Rafael Guedes, exceto os componentes acima.</p>
+      </section>
+    </main>
+
+    <footer class="guia-rodape">
+      <a href="index.html" class="guia-voltar">Voltar para o mapa</a>
+      <span style="color: var(--suave); font-size: 13px;">Transecto Climático</span>
+    </footer>
+    <footer class="rodape">
+      <a href="metodologia.html">Como calculamos</a>
+      <a href="privacidade.html">Privacidade</a>
+      <a href="termos.html">Termos</a>
+      <a href="licencas.html" aria-current="page">Licenças</a>
+    </footer>
+  </div>
+</body>
+</html>

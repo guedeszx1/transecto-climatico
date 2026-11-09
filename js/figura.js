@@ -24,7 +24,7 @@ const FUNDOS = {
   satelite: {
     url: (z, x, y) =>
       `https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}`,
-    credito: 'Imagens © Esri, Maxar, Earthstar Geographics',
+    credito: 'Powered by Esri | Fontes: Esri, Maxar, Earthstar Geographics',
   },
 };
 
