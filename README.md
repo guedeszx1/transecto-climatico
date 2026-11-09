@@ -8,4 +8,8 @@ Os arquivos são processados no navegador de quem usa e não são enviados a nen
 
 Desenvolvido por Rafael Guedes, LCGEA, Universidade de Brasília (UnB).
 
-Usa Leaflet, JSZip, SheetJS e a fonte Archivo, cada um com sua própria licença. Mapas de fundo: OpenStreetMap e Esri.
+Usa Leaflet, JSZip, SheetJS e a fonte Archivo. Mapas de fundo: OpenStreetMap e Esri.
+
+## Licença
+
+O código próprio do site está sob a licença [MIT](LICENSE). As bibliotecas, a fonte e os dados de mapa seguem as próprias licenças, listadas em `licencas.html`.

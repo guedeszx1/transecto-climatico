@@ -48,7 +48,7 @@ O site é estático: sem login, banco de dados, API própria, cobrança, cookies
 | 26 | Identificação do fornecedor | OK | Nome e canal de contato em `privacidade.html`, `termos.html` e `desenvolvedor.html`. |
 | 27 | Publicidade transparente | N/A | Sem publicidade. |
 | 28 | Depoimentos autênticos | N/A | Sem depoimentos. |
-| 29 | Licenças de uso | VOCÊ | Bibliotecas e mapas em `licencas.html`, com textos em `vendor/`. Falta decidir a licença do código próprio e confirmar os termos da camada de satélite Esri. |
+| 29 | Licenças de uso | VOCÊ | Código próprio sob licença MIT (`LICENSE`). Bibliotecas e mapas em `licencas.html`, com textos em `vendor/`. Falta confirmar os termos da camada de satélite Esri. |
 | 30 | Transparência dos cálculos | OK | `metodologia.html`: fórmulas, limitações e cada script. |
 
 ## Produção e responsabilidade
@@ -62,6 +62,6 @@ O site é estático: sem login, banco de dados, API própria, cobrança, cookies
 | 35 | Notificação de incidentes | OK | `INCIDENTES.md`, com art. 48 da LGPD e Resolução CD/ANPD nº 15/2024. |
 | 36 | Testes de segurança | OK | Testes automatizados, ataques em navegador real e CodeQL. Sem teste de invasão profissional. |
 | 37 | Revisão de código | OK | Revisão independente interna e CodeQL. |
-| 38 | Privilégios administrativos | VOCÊ | Um só administrador; `main` sem force push nem exclusão. Falta confirmar a autenticação em dois fatores na conta do GitHub. |
+| 38 | Privilégios administrativos | OK | Um só administrador, com autenticação em dois fatores (informado pelo responsável em 08/11/2026); `main` sem force push nem exclusão. |
 | 39 | Gestão de vulnerabilidades | OK | `SECURITY.md`, relato privado ativo e verificação diária. |
 | 40 | Auditoria de conformidade | OK | Este documento. Revisão interna, sem certificação jurídica. |
